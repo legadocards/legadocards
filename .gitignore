@@ -1,0 +1,16 @@
+# Ignorar copias de seguridad de imágenes y videos pesados
+CONTENT_BACKUP/
+CONTENT_BACKUP*
+CONTENT_TEMP/
+
+# Ignorar las carpetas de plantillas PSD y plantillas de cartas pesadas
+PLANTILLA BRONCE/
+PLANTILLA ELITE/
+PLANTILLA LEYENDA/
+PLANTILLA ORO/
+PLANTILLA PLATA/
+PLANTILLA*/
+
+# Ignorar scripts temporales de limpieza
+clean_content.py
+clean_content.ps1

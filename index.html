@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Optimization -->
+  <title>LEGADO CARDS | Tu Historia Hecha Colección - Mundial 2026</title>
+  <meta name="description" content="Transformamos a personas reales en cartas coleccionables premium personalizadas para el Mundial 2026. Edición Limitada Fundadora.">
+  <meta name="keywords" content="legado cards, cartas personalizadas, cartas coleccionables, mundial 2026, coleccionables premium, regalo futbol, custom cards">
+  
+  <!-- Facebook Open Graph Meta Tags -->
+  <meta property="og:title" content="LEGADO CARDS | Tu Historia Hecha Colección - Mundial 2026">
+  <meta property="og:description" content="Conviértete en una de las 2,026 cartas fundadoras de la colección más exclusiva del Mundial 2026. Diseñada a mano por expertos.">
+  <meta property="og:image" content="CONTENT/hero_cards_international_results_lineup.png">
+  <meta property="og:url" content="https://legado.cards">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts - Montserrat (Geometric Bold Titles) & Outfit (Geometric Contemporary Body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       1. NAV FIJA (GLASSMORPHISM)
+       ========================================== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo-area" id="navLogo">
+        <img src="CONTENT/logo_icon_gold_on_black.png" alt="LEGADO Logo" class="logo-img">
+        <span class="logo-text">LEGADO CARDS</span>
+      </a>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <li><a href="#que-es">Cartas</a></li>
+        <li><a href="#rarezas">Rarezas</a></li>
+        <li><a href="#paquetes">Paquetes</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Cambiar tema">
+          <!-- Moon Icon (shows in dark mode, click for light) -->
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12 3c.132 0 .263 0 .393.007a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 3zm0-2a11 11 0 1 0 11 11 9.98 9.98 0 0 0-1.07-4.47A9.5 9.5 0 0 1 12.52 4.07 10.93 10.93 0 0 0 12 1z"/>
+          </svg>
+          <!-- Sun Icon (shows in light mode, click for dark) -->
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM5.636 4.222a1 1 0 0 1 0 1.414L4.222 7.05a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zm14.142 14.142a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm16 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zM6.343 17.657a1 1 0 0 1 1.414 0l1.414 1.414a1 1 0 1 1-1.414 1.414l-1.414-1.414a1 1 0 0 1 0-1.414zm14.142-14.142a1 1 0 0 1 1.414 0l1.414 1.414a1 1 0 1 1-1.414 1.414l-1.414-1.414a1 1 0 0 1 0-1.414z"/>
+          </svg>
+        </button>
+        <button class="cta-nav" onclick="seleccionarPaquete('')">QUIERO MI CARTA</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         2. HERO SECTION
+         ========================================== -->
+    <section class="hero" id="hero">
+      <canvas id="particles-canvas"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <span class="hero-eyebrow">Edición Fundadora · Solo 2,026 cartas en el mundo</span>
+          <h1 class="hero-title text-gold-gradient">MUNDIALÍZATE 2026</h1>
+          <p class="hero-subtitle">Conviértete en una de las 2,026 cartas fundadoras de la colección más exclusiva del Mundial.</p>
+          <p class="hero-tagline">Tu historia hecha colección.</p>
+          
+          <div class="hero-pills">
+            <span class="pill">No es una foto</span>
+            <span class="pill">No es un diseño</span>
+            <span class="pill">Es tu legado</span>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn-gold pulse" onclick="seleccionarPaquete('')">QUIERO MI CARTA</button>
+            <a href="#paquetes" class="btn-outline">VER PAQUETES</a>
+          </div>
+
+          <div class="hero-counter">
+            <span class="counter-dot"></span>
+            <span><strong id="registeredCount">17</strong> fundadores registrados · <strong id="remainingCount">2,009</strong> lugares restantes</span>
+          </div>
+
+          <div class="early-bird-banner" style="margin-top: 24px;">
+            <span>🎟️ <strong>Early Bird:</strong> <strong id="ebRemaining">83</strong>/100 lugares</span>
+            <span class="early-bird-price">S/9.90</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <!-- Image with transparent background to integrate with page flow naturally -->
+          <img src="CONTENT/hero_cards_international_results_lineup.png" alt="LEGADO Cards Colección Familiar Mundial 2026">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         3. QUÉ ES LEGADO
+         ========================================== -->
+    <section class="section-padding bg-texture-dark" id="que-es">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">El Concepto</span>
+          <h2 class="section-title text-gold-gradient">¿QUÉ ES LEGADO CARDS?</h2>
+          <p class="section-subtitle">No vendemos cartas. Vendemos identidad, nostalgia y legado personal.</p>
+        </div>
+
+        <div class="que-es-grid">
+          <div class="que-es-content reveal">
+            <h3>Tu historia hecha colección</h3>
+            <p>Transformamos tus retratos en cartas físicas y digitales de colección premium completamente personalizadas. Nuestro equipo de diseñadores profesionales trabaja tu imagen a mano, vistiéndote con los colores de tu selección favorita con un acabado de lujo.</p>
+            
+            <div class="guia-foto-card">
+              <h4>✓ Guía para una foto perfecta</h4>
+              <div class="guia-lists">
+                <ul class="guia-list dos">
+                  <li>Buena iluminación natural</li>
+                  <li>Fondo simple liso o blanco</li>
+                  <li>Mirada directa a la cámara</li>
+                  <li>Brazos cruzados o pose de futbolista</li>
+                  <li>Encuadre desde la cintura</li>
+                </ul>
+                <ul class="guia-list donts">
+                  <li>Sin lentes de sol</li>
+                  <li>Sin fotos grupales</li>
+                  <li>Sin filtros de apps</li>
+                  <li>Sin fotos borrosas o pixeladas</li>
+                </ul>
+              </div>
+              <p class="guia-note">La camiseta es integrada por nuestros artistas en base a tu país de representación. No necesitas tenerla puesta en tu fotografía original.</p>
+            </div>
+
+            <!-- New before & after comparison showing full-height card clearly -->
+            <div class="photo-comparison-container">
+              <img src="CONTENT/befor_after_new.png" alt="Comparativa de foto original a carta LEGADO terminada con dimensiones correctas">
+            </div>
+          </div>
+
+          <div class="features-grid reveal">
+            <!-- Feature 1 -->
+            <div class="feature-box">
+              <div class="feature-icon">🛡️</div>
+              <h4>Edición Fundadora</h4>
+              <p>Colección numerada limitada estrictamente a 2,026 unidades. Una vez emitidas, cerramos la colección para siempre.</p>
+            </div>
+            <!-- Feature 2 -->
+            <div class="feature-box">
+              <div class="feature-icon">⚡</div>
+              <h4>Diseño a Medida</h4>
+              <p>Estética contemporánea con detalles dorados, tipografías geométricas limpias y acabados metalizados de alto coleccionismo.</p>
+            </div>
+            <!-- Feature 3 -->
+            <div class="feature-box">
+              <div class="feature-icon">👤</div>
+              <h4>Retrato Deportivo Profesional</h4>
+              <p>Nuestros ilustradores adaptan tu selfie para integrarte en una camiseta premium de fútbol con un realismo y acabado extraordinario.</p>
+            </div>
+            <!-- Feature 4 -->
+            <div class="feature-box">
+              <div class="feature-icon">🎲</div>
+              <h4>Atributos y Rareza Aleatorios</h4>
+              <p>Siente la emoción de abrir un sobre real. Tu OVR (puntuación) y rareza son aleatorios, añadiendo suspenso y valor a tu carta.</p>
+            </div>
+            <!-- Feature 5 -->
+            <div class="feature-box">
+              <div class="feature-icon">🔒</div>
+              <h4>Certificado QR</h4>
+              <p>Tu carta cuenta con un reverso único con código QR de autenticidad enlazado a nuestra base de fundadores oficiales.</p>
+            </div>
+            <!-- Feature 6 -->
+            <div class="feature-box">
+              <div class="feature-icon">📬</div>
+              <h4>Entregables de Calidad</h4>
+              <p>Formatos digitales en ultra alta definición (PNG frente/reverso) y opción de impresión premium en físico.</p>
+            </div>
+            <!-- Feature 7 -->
+            <div class="feature-box">
+              <div class="feature-icon">🏟️</div>
+              <h4>Identidad de Selección</h4>
+              <p>Representa a tu país de origen con tu nombre, bandera, escudo y número único oficial de la Founders Edition.</p>
+            </div>
+            <!-- Feature 8 -->
+            <div class="feature-box">
+              <div class="feature-icon">💎</div>
+              <h4>Holograma Founders</h4>
+              <p>Sello de autenticidad Founders Edition integrado en el frente de la carta para certificar tu lugar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         4. QUÉ INCLUYE TU CARTA (ANATOMÍA FRENTE Y REVERSO)
+         ========================================== -->
+    <section class="section-padding" id="que-incluye">
+      <div class="container incluye-grid">
+        <div class="incluye-text reveal">
+          <span class="section-eyebrow">Detalles Premium</span>
+          <h2 class="section-title text-gold-gradient">ANATOMÍA DE TU CARTA</h2>
+          <p class="section-subtitle">Cada detalle ha sido diseñado para exudar lujo y nostalgia.</p>
+          
+          <div class="anatomia-details" style="margin-top: 32px;">
+            <div class="anatomia-col">
+              <h4>Frente de la Carta</h4>
+              <ul>
+                <li>Retrato premium con camiseta de selección</li>
+                <li>Tu nombre o apodo personalizado</li>
+                <li>Bandera y código de país</li>
+                <li>Puntuación global aleatoria (OVR)</li>
+                <li>Rareza y color representativo sorpresa</li>
+                <li>6 atributos numéricos de rendimiento</li>
+                <li>Número único #XXXX/2026</li>
+                <li>Sello metalizado Founders Edition</li>
+              </ul>
+            </div>
+
+            <div class="anatomia-col">
+              <h4>Reverso de la Carta</h4>
+              <ul>
+                <li>Sello holográfico LEGADO</li>
+                <li>Código QR de autenticidad enlazado</li>
+                <li>Fecha de emisión oficial</li>
+                <li>Código único de transacción</li>
+                <li>Texto de la colección oficial</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="entregables-box">
+            <h4>📦 Tu compra incluye:</h4>
+            <div class="entregables-items">
+              <div class="entregable-item">📄 PDF Completo Listo para Imprimir</div>
+              <div class="entregable-item">🖼 ... PNG HD Frente (1080x1620px)</div>
+              <div class="entregable-item">🖼 ... PNG HD Reverso (1080x1620px)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="incluye-visual reveal">
+          <!-- Card Frente with 3D Holographic effect -->
+          <div class="card-wrapper">
+            <div class="card-3d-container" data-rarity="elite">
+              <div class="card-3d">
+                <img src="CONTENT/card_elite_maria_gracia_luna_front.png" alt="Carta LEGADO Élite Frente" class="card-image-bg">
+              </div>
+            </div>
+            <div class="card-label-overlay">CARTA ÉLITE (FRENTE)</div>
+          </div>
+
+          <!-- Card Reverso to show front and back of the exact same Elite card -->
+          <div class="card-wrapper">
+            <div class="card-3d-container" data-rarity="elite">
+              <div class="card-3d">
+                <img src="CONTENT/card_back_elite_qr_1830.png" alt="Carta LEGADO Élite Reverso" class="card-image-bg">
+              </div>
+            </div>
+            <div class="card-label-overlay">CARTA ÉLITE (REVERSO)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         5. RAREZAS (CON BANDEJAS ACTUALIZADAS)
+         ========================================== -->
+    <section class="section-padding bg-texture-dark" id="rarezas">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">Tu Carta. Tu Nivel.</span>
+          <h2 class="section-title text-gold-gradient">SISTEMA DE RAREZAS</h2>
+          <p class="section-subtitle">La suerte determina el diseño y el color de tu carta. OVR y rarezas aleatorios.</p>
+        </div>
+
+        <!-- Abanico de Cartas en Desktop con la Leyenda corregida con bandera cuadrada -->
+        <div class="rarezas-fan-container reveal">
+          <!-- Bronce -->
+          <div class="rarity-card-wrapper">
+            <div class="card-3d-container" data-rarity="bronce">
+              <div class="card-3d">
+                <img src="CONTENT/card_bronce_carlos_gutierrez_front.png" alt="Carta LEGADO Bronce" class="card-image-bg">
+              </div>
+            </div>
+          </div>
+          <!-- Plata -->
+          <div class="rarity-card-wrapper">
+            <div class="card-3d-container" data-rarity="plata">
+              <div class="card-3d">
+                <img src="CONTENT/card_plata_diana_quispe_front.png" alt="Carta LEGADO Plata" class="card-image-bg">
+              </div>
+            </div>
+          </div>
+          <!-- Oro -->
+          <div class="rarity-card-wrapper">
+            <div class="card-3d-container" data-rarity="oro">
+              <div class="card-3d">
+                <img src="CONTENT/card_oro_luis_quispe_front.png" alt="Carta LEGADO Oro" class="card-image-bg">
+              </div>
+            </div>
+          </div>
+          <!-- Élite -->
+          <div class="rarity-card-wrapper">
+            <div class="card-3d-container" data-rarity="elite">
+              <div class="card-3d">
+                <img src="CONTENT/card_elite_maria_gracia_quispe_front.png" alt="Carta LEGADO Élite" class="card-image-bg">
+              </div>
+            </div>
+          </div>
+          <!-- Leyenda (Corregida con la versión de la bandera peruana cuadrada) -->
+          <div class="rarity-card-wrapper">
+            <div class="card-3d-container" data-rarity="leyenda">
+              <div class="card-3d">
+                <img src="CONTENT/card_leyenda_roberto_hinojosa_peru_front_alt.png" alt="Carta LEGADO Leyenda" class="card-image-bg">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Datos de las rarezas -->
+        <div class="rarezas-details-grid reveal">
+          <div class="rarity-detail-box" style="--border-color: var(--color-bronce);">
+            <h4>BRONCE</h4>
+            <p class="rarity-ovr">OVR 60-74</p>
+            <p class="rarity-percentage">40% Probabilidad</p>
+            <p class="rarity-qty">Límite: 810 cartas</p>
+          </div>
+          <div class="rarity-detail-box" style="--border-color: var(--color-plata);">
+            <h4>PLATA</h4>
+            <p class="rarity-ovr">OVR 75-84</p>
+            <p class="rarity-percentage">30% Probabilidad</p>
+            <p class="rarity-qty">Límite: 608 cartas</p>
+          </div>
+          <div class="rarity-detail-box" style="--border-color: var(--color-oro);">
+            <h4>ORO</h4>
+            <p class="rarity-ovr">OVR 85-89</p>
+            <p class="rarity-percentage">20% Probabilidad</p>
+            <p class="rarity-qty">Límite: 405 cartas</p>
+          </div>
+          <div class="rarity-detail-box" style="--border-color: var(--color-elite);">
+            <h4>ÉLITE</h4>
+            <p class="rarity-ovr">OVR 90-94</p>
+            <p class="rarity-percentage">8% Probabilidad</p>
+            <p class="rarity-qty">Límite: 162 cartas</p>
+          </div>
+          <div class="rarity-detail-box" style="--border-color: var(--color-leyenda);">
+            <h4>LEYENDA</h4>
+            <p class="rarity-ovr">OVR 95-99</p>
+            <p class="rarity-percentage">2% Probabilidad</p>
+            <p class="rarity-qty">Límite: 40 cartas</p>
+          </div>
+        </div>
+
+        <div class="special-card-box reveal">
+          <div class="special-ovr-badge">OVR 100</div>
+          <div class="special-card-info">
+            <h4>CARTA SUPREMA UNIQUE</h4>
+            <p>Solo existirá 1 sola carta con OVR 100 en toda la colección. Nadie sabe quién la obtendrá ni en qué paquete saldrá. Podrías ser tú.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         6. PAQUETES (CON TIEMPOS DE ENTREGA CORREGIDOS Y EJEMPLOS VISUALES)
+         ========================================== -->
+    <section class="section-padding" id="paquetes">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">Tu Inversión en Identidad</span>
+          <h2 class="section-title text-gold-gradient">ELIGE TU PAQUETE DE COLECCIÓN</h2>
+          <p class="section-subtitle">Desde cartas digitales individuales hasta experiencias familiares físicas premium.</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="packages-tabs-nav reveal">
+          <button class="tab-btn active" data-tab="fundadores">Fundadores</button>
+          <button class="tab-btn" data-tab="dupla">Dupla</button>
+          <button class="tab-btn" data-tab="familia">Familia FC</button>
+          <button class="tab-btn" data-tab="equipo">Equipo</button>
+          <button class="tab-btn" data-tab="accesorios">Accesorios</button>
+        </div>
+
+        <!-- Tab Panes Content -->
+        <div class="tab-panes reveal">
+          
+          <!-- TAB 1: FUNDADORES -->
+          <div class="tab-pane active" id="fundadores">
+            
+            <!-- Early Bird -->
+            <div class="package-card">
+              <span class="package-badge">Oferta Lanzamiento</span>
+              <h4>Early Bird</h4>
+              <div class="package-price">S/9.90<span>/ pago único</span></div>
+              <ul class="package-features">
+                <li>Solo para las primeras 100 unidades</li>
+                <li>Carta Digital PNG (Frente y Reverso) en max 12h</li>
+                <li>Certificado digital de autenticidad</li>
+                <li>Número único #XXXX/2026 oficial</li>
+                <li>Badge Primera Generación</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Early Bird (S/9.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Fundador Oficial -->
+            <div class="package-card">
+              <h4>Fundador Oficial</h4>
+              <div class="package-price">S/19.90<span>/ pago único</span></div>
+              <ul class="package-features">
+                <li>Carta Digital PNG de alta resolución en max 12h</li>
+                <li>Frente + Reverso listos para redes</li>
+                <li>Certificado digital de autenticidad</li>
+                <li>Número único #XXXX/2026 oficial</li>
+                <li>Registro permanente en la base oficial</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Fundador Oficial (S/19.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Fundador Físico -->
+            <div class="package-card">
+              <h4>Fundador Físico</h4>
+              <div class="package-price">S/34.90<span>/ pago único</span></div>
+              <ul class="package-features">
+                <li>Todo lo digital en un plazo máximo de 12h</li>
+                <li>Carta física premium impresa en 24-48h</li>
+                <li>Certificado físico de autenticidad</li>
+                <li>Número único #XXXX/2026</li>
+                <li>Envío Lima incluido (Provincias +S/12.90)</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Fundador Físico (S/34.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Fundador Físico Premium -->
+            <div class="package-card" style="border-color: var(--gold-brand); background: rgba(188, 151, 72, 0.04);">
+              <span class="package-badge popular">Más Popular</span>
+              <h4>Fundador Físico Premium</h4>
+              <div class="package-price">S/44.90<span>/ pago único</span></div>
+              <ul class="package-features">
+                <li>Todo lo digital en un plazo máximo de 12h</li>
+                <li>Carta física premium impresa en 24-48h</li>
+                <li>Certificado físico de autenticidad</li>
+                <li>Funda protectora premium</li>
+                <li>Card Saver rígido</li>
+                <li>Entregado en Seal Pack oficial</li>
+                <li>Envío Lima incluido (Provincias +S/12.90)</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Fundador Físico Premium (S/44.90)')">Seleccionar</button>
+            </div>
+            
+            <!-- Showcase de cartas reales agregadas para credibilidad visual -->
+            <div style="grid-column: 1 / -1; margin-top: 32px; text-align: center;">
+              <h5 style="font-family: var(--font-title); font-size: 14px; font-weight: 800; letter-spacing: 2px; color: var(--gold-brand); margin-bottom: 24px; text-transform: uppercase;">Ejemplos de cartas de fundadores emitidas</h5>
+              <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="width: 140px;">
+                  <div class="card-3d-container" data-rarity="bronce">
+                    <div class="card-3d">
+                      <img src="CONTENT/card_bronce_shon_marchena_curacao_front.png" class="card-image-bg" alt="Carta Bronce Curazao">
+                    </div>
+                  </div>
+                </div>
+                <div style="width: 140px;">
+                  <div class="card-3d-container" data-rarity="plata">
+                    <div class="card-3d">
+                      <img src="CONTENT/card_plata_yassine_hakimi_morocco_front.png" class="card-image-bg" alt="Carta Plata Marruecos">
+                    </div>
+                  </div>
+                </div>
+                <div style="width: 140px;">
+                  <div class="card-3d-container" data-rarity="oro">
+                    <div class="card-3d">
+                      <img src="CONTENT/card_oro_mohammed_al_abui_saudi_front.png" class="card-image-bg" alt="Carta Oro Arabia Saudita">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: DUPLA -->
+          <div class="tab-pane" id="dupla">
+            <!-- Dupla Digital -->
+            <div class="package-card">
+              <h4>Dupla Digital</h4>
+              <div class="package-price">S/29.90<span>/ dupla</span></div>
+              <ul class="package-features">
+                <li>2 cartas digitales PNG Frente/Reverso en max 12h</li>
+                <li>2 certificados digitales de autenticidad</li>
+                <li>Números únicos consecutivos oficiales</li>
+                <li>Escudo exclusivo de Dupla</li>
+                <li>Ideal para ti y tu pareja o mejor amigo</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Dupla Digital (S/29.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Dupla Premium Física -->
+            <div class="package-card">
+              <h4>Dupla Premium Física</h4>
+              <div class="package-price">S/59.90<span>/ dupla</span></div>
+              <ul class="package-features">
+                <li>Todo lo digital de ambas cartas en max 12h</li>
+                <li>2 cartas físicas premium en 24-48h</li>
+                <li>2 fundas protectoras + 2 Card Savers</li>
+                <li>Entregado en Sobre Coleccionable Dupla</li>
+                <li>Envío Lima incluido (Provincias +S/12.90)</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Dupla Premium Física (S/59.90)')">Seleccionar</button>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 32px; display: flex; justify-content: center;">
+              <img src="CONTENT/two_cards_bronce_plata_showcase.jpeg" alt="Ejemplo de Dupla LEGADO CARDS" style="max-width: 320px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            </div>
+          </div>
+
+          <!-- TAB 3: FAMILIA FC -->
+          <div class="tab-pane" id="familia">
+            <!-- Familia FC Digital 4p -->
+            <div class="package-card">
+              <h4>Familia FC Digital (4p)</h4>
+              <div class="package-price">S/49.90<span>/ 4 personas</span></div>
+              <ul class="package-features">
+                <li>4 cartas digitales PNG Frente/Reverso en max 12h</li>
+                <li>4 certificados digitales oficiales</li>
+                <li>Escudo familiar personalizado</li>
+                <li>Póster digital de la alineación familiar</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Familia FC Digital 4p (S/49.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Familia FC Digital 5p -->
+            <div class="package-card">
+              <h4>Familia FC Digital (5p)</h4>
+              <div class="package-price">S/59.90<span>/ 5 personas</span></div>
+              <ul class="package-features">
+                <li>5 cartas digitales PNG Frente/Reverso en max 12h</li>
+                <li>5 certificados digitales oficiales</li>
+                <li>Escudo familiar personalizado</li>
+                <li>Póster digital alineación</li>
+                <li>Nombre de equipo personalizado</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Familia FC Digital 5p (S/59.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Familia FC Digital 7p -->
+            <div class="package-card">
+              <h4>Familia FC Digital (7p)</h4>
+              <div class="package-price">S/79.90<span>/ 7 personas</span></div>
+              <ul class="package-features">
+                <li>7 cartas digitales PNG Frente/Reverso en max 12h</li>
+                <li>7 certificados digitales oficiales</li>
+                <li>Escudo familiar personalizado</li>
+                <li>Póster digital alineación</li>
+                <li>Asignación de Capitán y Jugador Revelación</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Familia FC Digital 7p (S/79.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Familia FC Física Premium 5p -->
+            <div class="package-card" style="border-color: var(--gold-brand); background: rgba(188, 151, 72, 0.04);">
+              <span class="package-badge popular">Más Popular</span>
+              <h4>Familia FC Física Premium (5p)</h4>
+              <div class="package-price">S/129.90<span>/ 5 personas</span></div>
+              <ul class="package-features">
+                <li>5 cartas físicas premium impresas en 24-48h</li>
+                <li>Todo lo digital de las 5 cartas en max 12h</li>
+                <li>5 fundas protectoras + 5 Card Savers rígidos</li>
+                <li>Póster impreso A4 de alineación familiar</li>
+                <li>Presentado en Caja Coleccionable Oficial</li>
+                <li>Envío gratis a todo el Perú</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Familia FC Física Premium 5p (S/129.90)')">Seleccionar</button>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 32px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+              <img src="CONTENT/family_unboxing_founders_pack.png" alt="Familia desempaquetando LEGADO" style="max-width: 280px; border-radius: 8px; border: 1px solid var(--card-border);">
+              <img src="CONTENT/hero_cards_international_family_lineup.png" alt="Alineación Familiar Internacional LEGADO CARDS" style="max-width: 280px; border-radius: 8px; border: 1px solid var(--card-border);">
+            </div>
+          </div>
+
+          <!-- TAB 4: EQUIPO -->
+          <div class="tab-pane" id="equipo">
+            <!-- Equipo Fundador Digital 11p -->
+            <div class="package-card">
+              <h4>Equipo Fundador Digital</h4>
+              <div class="package-price">S/149.90<span>/ 11 personas</span></div>
+              <ul class="package-features">
+                <li>11 cartas digitales PNG Frente/Reverso en max 12h</li>
+                <li>11 certificados digitales de autenticidad</li>
+                <li>Escudo de equipo personalizado</li>
+                <li>Póster digital de alineación oficial</li>
+                <li>Badges especiales: Capitán, MVP y Revelación</li>
+                <li>Nombre y colores del equipo personalizados</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Equipo Fundador Digital 11p (S/149.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Equipo Fundador Físico Premium 11p -->
+            <div class="package-card" style="border-color: #FF1744; background: rgba(255, 23, 68, 0.02);">
+              <span class="package-badge max">Máxima Experiencia</span>
+              <h4>Equipo Físico Premium</h4>
+              <div class="package-price">S/249.90<span>/ 11 personas</span></div>
+              <ul class="package-features">
+                <li>11 cartas físicas impresas premium en 24-48h</li>
+                <li>Todo lo digital de las 11 cartas en max 12h</li>
+                <li>11 fundas protectoras + 11 Card Savers rígidos</li>
+                <li>Póster impreso gigante A3 del equipo</li>
+                <li>Presentado en Caja Premium de Equipo</li>
+                <li>Envío gratis a todo el Perú</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Equipo Fundador Físico Premium 11p (S/249.90)')">Seleccionar</button>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 32px; display: flex; justify-content: center; gap: 20px;">
+              <img src="CONTENT/product_flatlay_multiple_founders_packs.png" alt="Paquetes de Equipos Múltiples" style="max-width: 380px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            </div>
+          </div>
+
+          <!-- TAB 5: ACCESORIOS -->
+          <div class="tab-pane" id="accessories">
+            <!-- Funda -->
+            <div class="package-card">
+              <h4>🛡️ Funda protectora</h4>
+              <div class="package-price">S/3.90<span>/ unidad</span></div>
+              <ul class="package-features">
+                <li>Funda de polipropileno ultra clara</li>
+                <li>Protección contra polvo, huellas y humedad</li>
+                <li>Tamaño exacto para las cartas físicas</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Funda protectora (S/3.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Card Saver -->
+            <div class="package-card">
+              <h4>💠 Card Saver rígido</h4>
+              <div class="package-price">S/5.90<span>/ unidad</span></div>
+              <ul class="package-features">
+                <li>Protector semirrígido transparente de alta resistencia</li>
+                <li>Evita que las cartas se doblen o rayen</li>
+                <li>Ideal para exhibición y conservación a largo plazo</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Card Saver rígido (S/5.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Combo -->
+            <div class="package-card">
+              <h4>🎁 Combo funda + Card Saver</h4>
+              <div class="package-price">S/7.90<span>/ combo</span></div>
+              <ul class="package-features">
+                <li>1 Funda protectora ultra clara</li>
+                <li>1 Card Saver semirrígido premium</li>
+                <li>La máxima protección para tu carta</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Combo funda + Card Saver (S/7.90)')">Seleccionar</button>
+            </div>
+
+            <!-- Reimpresión -->
+            <div class="package-card">
+              <h4>🔁 Reimpresión física</h4>
+              <div class="package-price">S/19.90<span>/ unidad</span></div>
+              <ul class="package-features">
+                <li>Copia física adicional de tu carta ya creada</li>
+                <li>Ideal para regalar a tus familiares</li>
+                <li>Papel fotográfico texturizado premium</li>
+              </ul>
+              <button class="btn-package-select" onclick="seleccionarPaquete('Reimpresión física (S/19.90)')">Seleccionar</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tab-footer-info reveal">
+          <div class="legacy-album-box">
+            <span class="album-icon">🛡️</span>
+            <div>
+              <h5>LEGACY ALBUM — Próximamente</h5>
+              <p>El primer álbum familiar premium diseñado para coleccionar figuritas de tus seres queridos, historia familiar y generaciones pasadas. Capacidad para 20-25 figuritas personalizadas.</p>
+            </div>
+          </div>
+          <p class="envios-nota"><strong>Nota sobre envíos:</strong> Envíos a todo Lima incluidos en los paquetes físicos. Provincias costo de S/12.90. Envío nacional gratis en los paquetes <strong>Familia FC Física Premium (5p)</strong> y <strong>Equipo Fundador Físico Premium (11p)</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         7. PACKAGING / SEAL PACK
+         ========================================== -->
+    <section class="section-padding bg-texture-dark" id="seal-pack">
+      <div class="container packaging-grid">
+        <div class="packaging-text reveal">
+          <span class="section-eyebrow">La Experiencia Unboxing</span>
+          <h2 class="section-title text-gold-gradient">EL SEAL PACK</h2>
+          <p class="section-subtitle">No es solo un empaque. Es el inicio de tu colección oficial.</p>
+          <p>Cada carta física premium de LEGADO CARDS se entrega sellada en nuestro Seal Pack oficial. Diseñado con un acabado negro mate y detalles dorados metálicos inspirados en los sobres de cromos más raros y codiciados del mundo de los coleccionables.</p>
+          
+          <div class="packaging-specs">
+            <div class="spec-column">
+              <h4>Detalle del Frente</h4>
+              <ul>
+                <li>Logotipo de LEGADO en foil dorado</li>
+                <li>Emblema especial FOUNDERS EDITION</li>
+                <li>Marca de edición numerada 1 OF 2026</li>
+                <li>Apertura tipo termosellada hermética</li>
+              </ul>
+            </div>
+            
+            <div class="spec-column">
+              <h4>Detalle del Reverso</h4>
+              <ul>
+                <li>Sello de autenticidad en bajorrelieve</li>
+                <li>Texto de colección oficial mundialista</li>
+                <li>Identificación oficial de redes sociales</li>
+                <li>Advertencia de seguridad y conservación</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="packaging-visual reveal">
+          <div class="card-3d-container" data-rarity="oro">
+            <div class="card-3d">
+              <img src="CONTENT/packaging_founders_edition_front_logo.png" alt="Empaque Seal Pack de LEGADO CARDS - Frente">
+            </div>
+          </div>
+          <div class="card-3d-container" data-rarity="oro">
+            <div class="card-3d">
+              <img src="CONTENT/packaging_founders_edition_back_text.png" alt="Empaque Seal Pack de LEGADO CARDS - Reverso">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         8. CÓMO FUNCIONA
+         ========================================== -->
+    <section class="section-padding" id="como-funciona">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">Flujo Sencillo</span>
+          <h2 class="section-title text-gold-gradient">DE SELFIE A COLECCIÓN EN 12 HORAS</h2>
+          <p class="section-subtitle">Obtén tu carta personalizada de forma rápida y sencilla.</p>
+        </div>
+
+        <div class="timeline reveal">
+          <!-- Paso 1 -->
+          <div class="timeline-step">
+            <span class="step-number">01</span>
+            <h4>Completa el formulario</h4>
+            <p>Ingresa tus datos básicos, nombre completo y apodo que deseas que figure en tu carta.</p>
+          </div>
+          <!-- Paso 2 -->
+          <div class="timeline-step">
+            <span class="step-number">02</span>
+            <h4>Sube tu fotografía</h4>
+            <p>Elige una foto con buena luz natural, siguiendo las pautas de nuestra guía de fotos para un óptimo retrato.</p>
+          </div>
+          <!-- Paso 3 -->
+          <div class="timeline-step">
+            <span class="step-number">03</span>
+            <h4>Selecciona tu paquete</h4>
+            <p>Elige el tipo de entrega: digital individual, físico premium o familiar grupal con empaque de lujo.</p>
+          </div>
+          <!-- Paso 4 -->
+          <div class="timeline-step">
+            <span class="step-number">04</span>
+            <h4>Descubre tu OVR y Rareza</h4>
+            <p>La rareza y el OVR son completamente aleatorios. Siente el suspenso y la emoción de un coleccionable real.</p>
+          </div>
+          <!-- Paso 5 -->
+          <div class="timeline-step">
+            <span class="step-number">05</span>
+            <h4>Diseño Dedicado en 12h</h4>
+            <p>Nuestros artistas expertos procesan tu foto y la diseñan a mano para integrarte al uniforme oficial en tiempo récord.</p>
+          </div>
+          <!-- Paso 6 -->
+          <div class="timeline-step">
+            <span class="step-number">06</span>
+            <h4>Certificado de Autenticidad</h4>
+            <p>Recibes tu certificado numerado único que certifica tu propiedad en la colección Founders Edition.</p>
+          </div>
+          <!-- Paso 7 -->
+          <div class="timeline-step">
+            <span class="step-number">07</span>
+            <h4>¡Entrega de tu Legado!</h4>
+            <p>Recibes tus archivos digitales en menos de 12 horas o tus cartas físicas en tu domicilio en 24-48 horas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         9. ESCASEZ / RESERVAS
+         ========================================== -->
+    <section class="section-padding bg-texture-dark" id="escasez">
+      <div class="container">
+        <div class="escasez-box reveal">
+          <div class="big-number-pulsing">2026</div>
+          <p class="escasez-subtitle">Cartas fundadoras en total en el planeta</p>
+          
+          <div class="progress-container">
+            <div class="progress-header">
+              <span>PROGRESO DE EMISIÓN</span>
+              <span>17 Emitidas / 2026 Total</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+          </div>
+
+          <div class="rarity-breakdown">
+            <div class="breakdown-item">
+              <div class="breakdown-name" style="color: var(--color-bronce)">Bronce</div>
+              <div class="breakdown-val" id="count-bronce">8</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-name" style="color: var(--color-plata)">Plata</div>
+              <div class="breakdown-val" id="count-plata">5</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-name" style="color: var(--color-oro)">Oro</div>
+              <div class="breakdown-val" id="count-oro">3</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-name" style="color: var(--color-elite)">Élite</div>
+              <div class="breakdown-val" id="count-elite">1</div>
+            </div>
+            <div class="breakdown-item">
+              <div class="breakdown-name" style="color: var(--color-leyenda)">Leyenda</div>
+              <div class="breakdown-val" id="count-leyenda">0</div>
+            </div>
+          </div>
+
+          <p class="disclaimer">Cuando se emita la última carta numerada de la colección #2026/2026, el registro de fundadores se cerrará permanentemente. Ninguna persona adicional podrá adquirir una carta de esta serie histórica ni figurar en la base de datos oficial del Mundial 2026.</p>
+          
+          <a href="#formulario" class="btn-gold">Asegurar mi lugar ahora</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         10. FORMULARIO DE REGISTRO CON MÉTODOS DE PAGO PRIVADOS E INTERACTIVOS
+         ========================================== -->
+    <section class="section-padding" id="formulario">
+      <div class="container formulario-grid">
+        <div class="form-wrapper reveal">
+          <form id="legadoForm">
+            
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="nombre">Nombre Completo *</label>
+                <input type="text" id="nombre" class="form-control" placeholder="Ej. Carlos Gutiérrez" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Correo Electrónico *</label>
+                <input type="email" id="email" class="form-control" placeholder="carlos@gmail.com" required>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp (con código de país) *</label>
+                <input type="tel" id="whatsapp" class="form-control" placeholder="Ej. 51989481296" required>
+              </div>
+
+              <div class="form-group">
+                <label for="pais">País Representado *</label>
+                <select id="pais" class="form-control" required>
+                  <option value="" disabled selected>Selecciona tu país</option>
+                  <option value="Perú">Perú 🇵🇪</option>
+                  <option value="Argentina">Argentina 🇦🇷</option>
+                  <option value="Brasil">Brasil 🇧🇷</option>
+                  <option value="Colombia">Colombia 🇨🇴</option>
+                  <option value="México">México 🇲🇽</option>
+                  <option value="Chile">Chile 🇨🇱</option>
+                  <option value="Ecuador">Ecuador 🇪🇨</option>
+                  <option value="España">España 🇪🇸</option>
+                  <option value="Estados Unidos">Estados Unidos 🇺🇸</option>
+                  <option value="Otro">Otro País</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="paquete">Paquete Seleccionado *</label>
+                <select id="paquete" class="form-control" required>
+                  <option value="" disabled selected>Selecciona un paquete</option>
+                  <optgroup label="Fundadores (Individuales)">
+                    <option value="Early Bird (S/9.90)">Early Bird — S/9.90</option>
+                    <option value="Fundador Oficial (S/19.90)">Fundador Oficial — S/19.90</option>
+                    <option value="Fundador Físico (S/34.90)">Fundador Físico — S/34.90</option>
+                    <option value="Fundador Físico Premium (S/44.90)">Fundador Físico Premium (Más Popular) — S/44.90</option>
+                  </optgroup>
+                  <optgroup label="Duplas">
+                    <option value="Dupla Digital (S/29.90)">Dupla Digital — S/29.90</option>
+                    <option value="Dupla Premium Física (S/59.90)">Dupla Premium Física — S/59.90</option>
+                  </optgroup>
+                  <optgroup label="Familia FC">
+                    <option value="Familia FC Digital 4p (S/49.90)">Familia FC Digital (4 personas) — S/49.90</option>
+                    <option value="Familia FC Digital 5p (S/59.90)">Familia FC Digital (5 personas) — S/59.90</option>
+                    <option value="Familia FC Digital 7p (S/79.90)">Familia FC Digital (7 personas) — S/79.90</option>
+                    <option value="Familia FC Física Premium 5p (S/129.90)">Familia FC Física Premium (5 personas) — S/129.90</option>
+                  </optgroup>
+                  <optgroup label="Equipos">
+                    <option value="Equipo Fundador Digital 11p (S/149.90)">Equipo Fundador Digital (11 personas) — S/149.90</option>
+                    <option value="Equipo Fundador Físico Premium 11p (S/249.90)">Equipo Físico Premium (11 personas) — S/249.90</option>
+                  </optgroup>
+                  <optgroup label="Accesorios">
+                    <option value="Funda protectora (S/3.90)">Funda protectora — S/3.90</option>
+                    <option value="Card Saver rígido (S/5.90)">Card Saver rígido — S/5.90</option>
+                    <option value="Combo funda + Card Saver (S/7.90)">Combo funda + Card Saver — S/7.90</option>
+                    <option value="Reimpresión física (S/19.90)">Reimpresión física — S/19.90</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="rol">Rol o Apodo en la Carta (Máx. 20 caracteres)</label>
+                <input type="text" id="rol" class="form-control" placeholder="Ej. PAPÁ, CAPITÁN, REY, LÍDER" maxlength="20">
+              </div>
+            </div>
+
+            <!-- Selector de Métodos de Pago Interactivo (Oculto hasta hacer clic) -->
+            <div class="form-group">
+              <label>Selecciona tu Método de Pago *</label>
+              <div class="payment-selector">
+                <button type="button" class="payment-sel-btn" data-method="yape">Yape / Plin</button>
+                <button type="button" class="payment-sel-btn" data-method="bcp">BCP</button>
+                <button type="button" class="payment-sel-btn" data-method="interbank">Interbank</button>
+                <button type="button" class="payment-sel-btn" data-method="paypal">PayPal</button>
+              </div>
+
+              <!-- Detalles de Pago Ocultos Dinámicos -->
+              <div class="payment-details-container">
+                <!-- YAPE / PLIN -->
+                <div class="payment-detail-box" id="pay-yape">
+                  <p><strong>Número:</strong> +51 944 759 928 <button type="button" class="copy-btn" data-copy="944759928">Copiar</button></p>
+                  <p><strong>Beneficiario:</strong> MILUSKA VALENCIA</p>
+                  <p style="margin-top: 8px; font-size: 12px; color: var(--gold-brand);">Escanea el código QR desde tu app:</p>
+                  <img src="CONTENT/payment_qr_yape_miluska_valencia.jpeg" class="payment-qr-image" alt="QR Yape Miluska Valencia">
+                </div>
+
+                <!-- BCP -->
+                <div class="payment-detail-box" id="pay-bcp">
+                  <p><strong>Cuenta Soles BCP:</strong> 19196324289059 <button type="button" class="copy-btn" data-copy="19196324289059">Copiar</button></p>
+                  <p><strong>Cuenta Interbancaria (CCI):</strong> 00219119632428905956 <button type="button" class="copy-btn" data-copy="00219119632428905956">Copiar</button></p>
+                  <p><strong>Beneficiario:</strong> MILUSKA VALENCIA</p>
+                </div>
+
+                <!-- INTERBANK -->
+                <div class="payment-detail-box" id="pay-interbank">
+                  <p><strong>Cuenta de Ahorros Interbank:</strong> 045 3358376390 <button type="button" class="copy-btn" data-copy="0453358376390">Copiar</button></p>
+                  <p><strong>Cuenta Interbancaria (CCI):</strong> 00304501335837639028 <button type="button" class="copy-btn" data-copy="00304501335837639028">Copiar</button></p>
+                  <p><strong>Beneficiario:</strong> MILUSKA VALENCIA</p>
+                </div>
+
+                <!-- PAYPAL -->
+                <div class="payment-detail-box" id="pay-paypal">
+                  <p><strong>Correo PayPal:</strong> josecarlos_lopezva@hotmail.com <button type="button" class="copy-btn" data-copy="josecarlos_lopezva@hotmail.com">Copiar Correo</button></p>
+                  <p><strong>Beneficiario:</strong> JOSE CARLOS LOPEZ</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Sube tu Fotografía de Perfil *</label>
+              <div class="upload-box">
+                <span class="upload-icon">📷</span>
+                <p>Haz clic para subir o arrastra tu fotografía aquí</p>
+                <input type="file" id="foto" class="file-input" accept="image/*" required>
+              </div>
+              <div class="preview-container" id="previewFotoContainer">
+                <img src="#" alt="Vista previa de foto" class="img-preview" id="previewFoto">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Sube tu Comprobante de Pago *</label>
+              <div class="upload-box">
+                <span class="upload-icon">📄</span>
+                <p>Haz clic para subir tu captura de Yape / Plin / Transferencia</p>
+                <input type="file" id="comprobante" class="file-input" accept="image/*,application/pdf" required>
+              </div>
+              <div class="preview-container" id="previewComprobanteContainer">
+                <img src="#" alt="Vista previa de comprobante" class="img-preview" id="previewComprobante">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="comentarios">Comentarios Adicionales (Apodos opcionales, etc.)</label>
+              <textarea id="comentarios" class="form-control" placeholder="Ej. Alguna observación específica para tu carta..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-gold pulse" style="width: 100%; margin-top: 10px;">QUIERO FORMAR PARTE DE LEGADO</button>
+          </form>
+        </div>
+
+        <div class="form-info-side reveal">
+          <h3>ASEGURA TU NÚMERO Y TU HISTORIA</h3>
+          <p>Selecciona tu método de pago preferido a la izquierda para ver los datos de abono. Una vez realizado, completa el formulario y sube los comprobantes requeridos. Nuestro equipo de diseñadores trabajará de forma dedicada tu carta en un plazo menor a 12 horas.</p>
+          
+          <div class="pago-instrucciones">
+            <h4>Paso 1: Realizar el Abono</h4>
+            <p>Selecciona la opción de pago de tu preferencia en el formulario para desplegar la información de cuenta y realizar el pago correspondiente.</p>
+            
+            <div class="pago-metodos-grid">
+              <span class="pago-metodo-tag">YAPE / PLIN</span>
+              <span class="pago-metodo-tag">BCP</span>
+              <span class="pago-metodo-tag">INTERBANK</span>
+              <span class="pago-metodo-tag">PAYPAL</span>
+            </div>
+          </div>
+
+          <div class="pago-instrucciones" style="border-color: rgba(0, 230, 118, 0.3); background: rgba(0, 230, 118, 0.02);">
+            <h4 style="color: #00E676;">Paso 2: Completar el Formulario</h4>
+            <p>Llena los datos solicitados a la izquierda y sube la captura de pantalla de tu transferencia o el PDF de tu comprobante. Nuestro sistema validará el envío automáticamente.</p>
+          </div>
+          
+          <!-- Extra Visual Credibility Card Showcase -->
+          <div style="margin-top: 32px; text-align: center;">
+            <div class="card-3d-container" data-rarity="elite" style="max-width: 200px; margin: 0 auto;">
+              <div class="card-3d">
+                <img src="CONTENT/card_elite_ronaldo_silva_brazil_front.png" class="card-image-bg" alt="Carta Élite Brasil Ronaldo Silva">
+              </div>
+            </div>
+            <p style="font-size: 11px; color: var(--text-secondary); margin-top: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Carta Élite de colección emitida</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal de confirmación -->
+    <div class="modal-overlay" id="confirmacionModal">
+      <div class="modal-content">
+        <span class="modal-icon">🏆</span>
+        <h3>¡BIENVENIDO A LEGADO!</h3>
+        <p>Tu solicitud ha sido procesada con éxito. Se te ha asignado provisionalmente el siguiente ID de la Founders Edition:</p>
+        <div class="modal-card-id" id="modalCardId">#0018/2026</div>
+        <p>Para culminar la verificación, te redirigiremos a nuestro chat de WhatsApp de soporte. Por favor envíanos la confirmación de este mensaje.</p>
+        <button class="btn-gold" id="closeModalBtn" style="width: 100%;">CONTINUAR A WHATSAPP</button>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         11. REDES SOCIALES
+         ========================================== -->
+    <section class="section-padding bg-texture-dark socials-section" id="redes">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">Únete a la Comunidad</span>
+          <h2 class="section-title text-gold-gradient">MIRA LAS CARTAS QUE YA SE ESTÁN PRODUCIENDO</h2>
+          <p class="section-subtitle">Síguenos en redes para ver unboxing de paquetes, cartas de fundadores y más sorpresas.</p>
+        </div>
+
+        <div class="social-btns-container reveal">
+          <a href="https://www.instagram.com/legadocards/" target="_blank" class="btn-social ig">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span>Instagram</span>
+          </a>
+          
+          <a href="https://www.tiktok.com/@legadocards" target="_blank" class="btn-social tiktok">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.032 2.612-.02 3.918-.02.22 2.012 1.185 3.791 2.861 4.877v3.915c-1.745-.236-3.284-1.127-4.37-2.464V14.5c0 3.473-2.1 6.845-5.918 7.357-3.905.524-7.53-2.029-8.038-5.945-.52-4.015 2.152-7.854 6.196-8.243.834-.08 1.678.016 2.476.278V11.8c-.524-.183-1.085-.235-1.636-.15-2.072.316-3.41 2.228-3.036 4.303.375 2.083 2.378 3.327 4.453 2.808 1.93-.483 2.923-2.3 2.905-4.218V.02z"/></svg>
+            <span>TikTok</span>
+          </a>
+
+          <a href="https://www.facebook.com/profile.php?id=61590639786483" target="_blank" class="btn-social fb">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         12. FAQ ACORDEÓN (CON TEXTOS Y TIEMPOS ACTUALIZADOS)
+         ========================================== -->
+    <section class="section-padding" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-eyebrow">Preguntas Frecuentes</span>
+          <h2 class="section-title text-gold-gradient">RESOLVEMOS TUS DUDAS</h2>
+          <p class="section-subtitle">Todo lo que necesitas saber antes de asegurar tu legado.</p>
+        </div>
+
+        <div class="faq-container reveal">
+          <!-- Q1 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Qué incluye mi carta?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Tu compra incluye archivos digitales de ultra alta resolución (PDF listo para impresión y archivos PNG del frente y el reverso en formato 1080x1620px). Si compraste un paquete físico, también recibirás la carta física impresa con papel fotográfico texturizado premium en el Seal Pack oficial con certificado físico.</p>
+            </div>
+          </div>
+          <!-- Q2 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Cómo se calcula el OVR?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>El OVR y la rareza de tu carta son completamente aleatorios, como abrir un sobre de figuritas. No existe ninguna fórmula o criterio basado en tu persona. Cualquier fundador puede recibir Bronce, Plata, Oro, Élite, Leyenda o incluso la carta especial OVR 100. Eso es parte de la magia y del suspenso.</p>
+            </div>
+          </div>
+          <!-- Q3 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Qué es una rareza y cómo se asigna?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>La rareza es el nivel de exclusividad de tu carta dentro de la colección. Se asigna de forma completamente aleatoria al abrir tu sobre de colección. No puedes elegirla ni sugerirla. Lo que sí puedes incluir en el formulario es tu rol o apodo preferido para que aparezca en tu carta.</p>
+            </div>
+          </div>
+          <!-- Q4 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Recibo certificado de autenticidad?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Sí, absolutamente. Todas las cartas cuentan con un certificado de autenticidad numerado del #0001/2026 al #2026/2026 enlazado con un código QR en el reverso, certificando que eres un miembro oficial de la Founders Edition.</p>
+            </div>
+          </div>
+          <!-- Q5 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Puedo representar cualquier país?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Sí, puedes representar a cualquier país del mundo. Nuestros diseñadores adaptarán el uniforme oficial de la selección nacional que elijas al renderizar tu retrato.</p>
+            </div>
+          </div>
+          <!-- Q6 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Puedo comprar para mi pareja?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>¡Claro! El paquete Dupla (Digital o Físico) está pensado específicamente para parejas, amigos o hermanos. Incluye 2 cartas con números de serie oficiales consecutivos y un escudo exclusivo de dupla.</p>
+            </div>
+          </div>
+          <!-- Q7 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Puedo comprar para mi familia o equipo?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Sí, tenemos el paquete Familia FC (de 4, 5 o 7 integrantes) y el paquete Equipo Fundador (de 11 integrantes) que incluyen descuentos significativos, pósteres grupales impresos o digitales y cajas de presentación de lujo.</p>
+            </div>
+          </div>
+          <!-- Q8 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Cómo debe ser mi foto?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Tu foto debe tener buena iluminación natural, de preferencia tomada de día, frente a un fondo de color liso o pared clara. Te recomendamos posar con los brazos cruzados y mirando directo a la cámara para lograr una pose auténtica de jugador. Evita usar lentes de sol, filtros exagerados, fotos borrosas o grupales.</p>
+            </div>
+          </div>
+          <!-- Q9 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿En qué formato recibo mi carta?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Los archivos digitales se entregan en formato PNG ultra nítido de alta resolución y un archivo PDF listo para su impresión premium.</p>
+            </div>
+          </div>
+          <!-- Q10 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Cuánto demora la entrega?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Las entregas digitales se realizan en un máximo de 12 horas laborables tras validar tu pago. Las entregas físicas en Lima y provincias se realizan en un rango de 24 a 48 horas dependiendo de la dirección de destino.</p>
+            </div>
+          </div>
+          <!-- Q11 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Realizan envíos a provincias?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Sí, realizamos envíos a todo el Perú a través de Olva Courier o Shalom por un costo fijo de S/12.90. Recuerda que los paquetes premium grupales (Familia FC Física Premium y Equipo Físico Premium) cuentan con envío gratis a nivel nacional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         13. CIERRE / CTA FINAL
+         ========================================== -->
+    <section class="section-padding bg-texture-dark cierre-section" id="cierre">
+      <div class="container">
+        <div class="cierre-box reveal">
+          <h3 class="text-gold-gradient">TU HISTORIA MERECE UN LUGAR EN LA COLECCIÓN</h3>
+          <p>Solo existirán 2,026 fundadores en todo el mundo. No te quedes fuera.</p>
+          
+          <!-- Extra visual cards to build credibility at CTA -->
+          <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 36px; flex-wrap: wrap;">
+            <div style="width: 130px;">
+              <div class="card-3d-container" data-rarity="leyenda">
+                <div class="card-3d">
+                  <img src="CONTENT/card_leyenda_juan_martinez_uruguay_front.png" class="card-image-bg" alt="Carta Leyenda Uruguay">
+                </div>
+              </div>
+            </div>
+            <div style="width: 130px;">
+              <div class="card-3d-container" data-rarity="oro">
+                <div class="card-3d">
+                  <img src="CONTENT/card_oro_luis_quispe_front.png" class="card-image-bg" alt="Carta Oro Perú">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-gold pulse" onclick="seleccionarPaquete('')">QUIERO MI CARTA</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       14. FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="logo-area">
+          <img src="CONTENT/logo_icon_gold_on_black.png" alt="LEGADO Logo" class="logo-img">
+          <span class="logo-text">LEGADO CARDS</span>
+        </div>
+        
+        <div class="footer-contacts">
+          <a href="mailto:legadocards@gmail.com">Email: legadocards@gmail.com</a>
+          <a href="https://legado.cards">Dominio: legado.cards</a>
+          <a href="https://www.instagram.com/legadocards/" target="_blank">Instagram: @legadocards</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 LEGADO CARDS. Edición Fundadora. Todos los derechos reservados. Colección limitada mundialista.</span>
+        <div style="display: flex; gap: 16px;">
+          <a href="https://www.instagram.com/legadocards/" target="_blank">IG</a>
+          <a href="https://www.tiktok.com/@legadocards" target="_blank">TK</a>
+          <a href="https://www.facebook.com/profile.php?id=61590639786483" target="_blank">FB</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       15. BOTÓN FLOTANTE WHATSAPP
+       ========================================== -->
+  <a href="https://wa.me/51989481296" target="_blank" class="whatsapp-float" id="wppFloatBtn">
+    <svg viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.62.964 3.206 1.48 4.813 1.48 5.43 0 9.85-4.414 9.853-9.84.002-2.63-1.023-5.1-2.885-6.963C16.566 1.968 14.1 .94 11.758.94c-5.43 0-9.851 4.415-9.854 9.84-.001 1.762.476 3.236 1.385 4.805L2.247 21.03l5.59-1.465.11-.067z"/>
+      <path d="M12.01 6.002c-.31 0-.616.03-.92.091-.837.166-1.517.653-1.838 1.32-.107.22-.162.46-.162.705 0 .285.074.56.215.795.534.896 1.546 2.052 2.85 3.326 1.353 1.322 2.56 2.378 3.483 2.923.23.136.495.207.766.207.234 0 .463-.05.674-.15.636-.302 1.1-.945 1.266-1.734.058-.29.088-.582.088-.876 0-1.127-1.173-1.614-1.92-1.226-.3.155-.55.4-.716.716l-.288.55c-.14.267-.487.35-.74.177-.66-.45-1.528-1.218-2.483-2.15-.956-.934-1.745-1.815-2.21-2.486-.178-.256-.1-.598.16-.744l.58-.3c.333-.173.585-.436.726-.747.362-.8-.15-1.928-1.216-1.928z"/>
+    </svg>
+    <span>Hablar por WhatsApp</span>
+  </a>
+
+  <!-- JavaScript Base -->
+  <script src="app.js"></script>
+</body>
+</html>
