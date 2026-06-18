@@ -6,7 +6,7 @@
 const CONFIG = {
   whatsappNumber: "51989481296",
   emailDestino: "legadocards@gmail.com",
-  appsScriptURL: "", // URL de la Web App de Google Apps Script
+  appsScriptURL: "https://script.google.com/macros/s/AKfycbzXB7uLMGqWhzlmgN-zlstu0JIJIAW7xwTHZ6P6Z3cztVvy27p0eckLU6fyxYqnw1DR/exec", // URL de la Web App de Google Apps Script
   baseUrl: "https://legadocards.vercel.app", // URL base configurable para QR y verify
   cartasEmitidas: 17,
   totalCartas: 2026,
