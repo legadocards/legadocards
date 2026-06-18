@@ -21,6 +21,9 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- QRCode.js Library para generación local de códigos QR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -1045,11 +1048,21 @@
     <div class="modal-overlay" id="confirmacionModal">
       <div class="modal-content">
         <span class="modal-icon">🏆</span>
-        <h3>¡BIENVENIDO A LEGADO!</h3>
-        <p>Tu solicitud ha sido procesada con éxito. Se te ha asignado provisionalmente el siguiente ID de la Founders Edition:</p>
-        <div class="modal-card-id" id="modalCardId">#0018/2026</div>
-        <p>Para culminar la verificación, te redirigiremos a nuestro chat de WhatsApp de soporte. Por favor envíanos la confirmación de este mensaje.</p>
-        <button class="btn-gold" id="closeModalBtn" style="width: 100%;">CONTINUAR A WHATSAPP</button>
+        <h3>¡SOLICITUD RECIBIDA!</h3>
+        <p>Tu solicitud ha sido procesada con éxito. Se te ha asignado el siguiente ID de la Edición Fundadora:</p>
+        <div class="modal-card-id" id="modalCardId">LGD-2026-0000</div>
+        
+        <!-- Código QR visible y descargable -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 24px 0; gap: 12px;">
+          <div id="canvasQR" style="background: #FFF; padding: 12px; border-radius: 6px; border: 1px solid var(--gold-brand); display: inline-block;"></div>
+          <a id="downloadQRBtn" href="#" download="QR_LEGADO.png" style="font-family: var(--font-title); font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--gold-brand); text-decoration: underline; text-transform: uppercase;">Descargar Código QR</a>
+        </div>
+
+        <p>En menos de 12 horas recibirás tu carta digital en tu correo.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px; width: 100%;">
+          <a id="modalWhatsappBtn" href="#" target="_blank" class="btn-gold" style="width: 100%; text-align: center; text-decoration: none; display: block; box-sizing: border-box;">ABRIR WHATSAPP 📱</a>
+          <button class="btn-outline" id="closeModalBtn" style="width: 100%; box-sizing: border-box;">CERRAR</button>
+        </div>
       </div>
     </div>
 

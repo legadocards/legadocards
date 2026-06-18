@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Verificación de Autenticidad | LEGADO CARDS</title>
+  <meta name="description" content="Verifica la autenticidad y los atributos oficiales de tu carta de la Edición Fundadora de LEGADO CARDS.">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Estilos específicos para la sección de verificación */
+    .verify-page {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      min-height: calc(100vh - 140px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .verify-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 48px;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    body.light-theme .verify-card {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      background: rgba(0, 0, 0, 0.015);
+    }
+
+    .verify-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 50px;
+      background: rgba(0, 230, 118, 0.1);
+      color: #00E676;
+      border: 1px solid rgba(0, 230, 118, 0.3);
+    }
+
+    .status-badge.error {
+      background: rgba(255, 23, 68, 0.1);
+      color: #FF1744;
+      border: 1px solid rgba(255, 23, 68, 0.3);
+    }
+
+    .status-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: currentColor;
+      border-radius: 50%;
+      animation: status-pulse-anim 1.5s infinite;
+    }
+
+    @keyframes status-pulse-anim {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .verify-title {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .verify-title h1 {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .verify-title p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Dashboard Layout */
+    .dashboard-main {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .dashboard-hero-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 32px;
+    }
+
+    .verify-ovr-box {
+      text-align: center;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(188, 151, 72, 0.2);
+      background: linear-gradient(135deg, rgba(188, 151, 72, 0.05) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    .verify-ovr-val {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 80px;
+      line-height: 1;
+      background: linear-gradient(135deg, #FFF, var(--gold-brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    body.light-theme .verify-ovr-val {
+      background: linear-gradient(135deg, #0F0E0C, var(--gold-brand));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .verify-rarity-badge {
+      display: inline-block;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 3px;
+      color: #FFF;
+      text-transform: uppercase;
+    }
+
+    /* Dashboard Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 24px;
+    }
+
+    .info-item label {
+      display: block;
+      font-family: var(--font-title);
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gold-brand);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .info-item span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    /* Attributes Grid */
+    .verify-attrs-section {
+      border-top: 1px solid var(--card-border);
+      padding-top: 32px;
+    }
+
+    .verify-attrs-section h3 {
+      font-family: var(--font-title);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      color: var(--gold-brand);
+    }
+
+    .attrs-hex-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+
+    .attr-hex-cell {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 12px 6px;
+    }
+
+    .attr-hex-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .attr-hex-val {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--text-color);
+    }
+
+    /* Hash box */
+    .hash-container {
+      margin-top: 32px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+      word-break: break-all;
+    }
+
+    body.light-theme .hash-container {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Loader */
+    .loader-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 60px 0;
+    }
+
+    .loader-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(188, 151, 72, 0.1);
+      border-top-color: var(--gold-brand);
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loader-text {
+      font-family: var(--font-title);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--gold-brand);
+      text-transform: uppercase;
+    }
+
+    /* Módulos de Error */
+    .error-container {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .error-container p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .verify-card {
+        padding: 30px 20px;
+      }
+      .dashboard-hero-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .attrs-hex-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       1. NAV FIJA (GLASSMORPHISM)
+       ========================================== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-area" id="navLogo">
+        <img src="CONTENT/logo_icon_gold_on_black.png" alt="LEGADO Logo" class="logo-img">
+        <span class="logo-text">LEGADO CARDS</span>
+      </a>
+      
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Cambiar tema">
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12 3c.132 0 .263 0 .393.007a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 3zm0-2a11 11 0 1 0 11 11 9.98 9.98 0 0 0-1.07-4.47A9.5 9.5 0 0 1 12.52 4.07 10.93 10.93 0 0 0 12 1z"/>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM5.636 4.222a1 1 0 0 1 0 1.414L4.222 7.05a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zm14.142 14.142a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm16 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zM6.343 17.657a1 1 0 0 1 1.414 0l1.414 1.414a1 1 0 1 1-1.414 1.414l-1.414-1.414a1 1 0 0 1 0-1.414zm14.142-14.142a1 1 0 0 1 1.414 0l1.414 1.414a1 1 0 1 1-1.414 1.414l-1.414-1.414a1 1 0 0 1 0-1.414z"/>
+          </svg>
+        </button>
+        <a href="index.html#formulario" class="cta-nav">QUIERO MI CARTA</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="bg-texture-dark verify-page">
+    <div class="container" style="display: flex; justify-content: center;">
+      
+      <div class="verify-card reveal visible">
+        
+        <!-- PANTALLA DE CARGA (SPINNER) -->
+        <div class="loader-container" id="loader">
+          <div class="loader-spinner"></div>
+          <span class="loader-text">Consultando Colección Oficial...</span>
+        </div>
+
+        <!-- PANTALLA DE ERROR / CARTA NO ENCONTRADA -->
+        <div class="error-container" id="errorBox" style="display: none;">
+          <div class="verify-status">
+            <span class="status-badge error">
+              <span class="status-pulse"></span>
+              <span>No Registrada</span>
+            </span>
+          </div>
+          <div class="verify-title">
+            <h1 style="color: #FF1744;">CARTA NO ENCONTRADA</h1>
+            <p>Colección Oficial LEGADO CARDS</p>
+          </div>
+          <p>El código de referencia ingresado no coincide con ninguna de las 2,026 cartas de la Edición Fundadora autorizadas por LEGADO.</p>
+          <a href="index.html" class="btn-gold">Volver al inicio</a>
+        </div>
+
+        <!-- PANTALLA DE CONTENIDO EXITOSO (AUTÉNTICO) -->
+        <div class="dashboard-main" id="dashboard" style="display: none;">
+          
+          <div class="verify-status">
+            <span class="status-badge">
+              <span class="status-pulse"></span>
+              <span>Carta Auténtica</span>
+            </span>
+          </div>
+
+          <div class="verify-title">
+            <h1 id="cardIdTitle">LGD-2026-0000</h1>
+            <p>Edición Fundadora 2026</p>
+          </div>
+
+          <!-- Hero Row: OVR & Rareza + Datos Propietario -->
+          <div class="dashboard-hero-row">
+            <div class="verify-ovr-box">
+              <div class="verify-ovr-val" id="cardOvr">99</div>
+              <span class="verify-rarity-badge" id="cardRarity" style="background-color: var(--color-elite);">Rareza</span>
+            </div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Número de Serie</label>
+                <span id="cardNo">#0000 / 2026</span>
+              </div>
+              <div class="info-item">
+                <label>Propietario Oficial</label>
+                <span id="cardOwner">Nombre Propietario</span>
+              </div>
+              <div class="info-item">
+                <label>País Representado</label>
+                <span id="cardCountry">País</span>
+              </div>
+              <div class="info-item">
+                <label>Fecha de Emisión</label>
+                <span id="cardDate">DD/MM/YYYY</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Atributos -->
+          <div class="verify-attrs-section">
+            <h3>Atributos Oficiales de Rendimiento</h3>
+            
+            <div class="attrs-hex-grid">
+              <div class="attr-hex-cell">
+                <div class="attr-hex-label">ENE</div>
+                <div class="attr-hex-val" id="attr-energia">00</div>
+              </div>
+              <div class="attr-hex-cell">
+                <div class="attr-hex-label">INT</div>
+                <div class="attr-hex-val" id="attr-inteligencia">00</div>
+              </div>
+              <div class="attr-hex-cell">
+                <div class="attr-hex-label">RES</div>
+                <div class="attr-hex-val" id="attr-resistencia">00</div>
+              </div>
+              <div class="attr-hex-cell">
+                <div class="attr-hex-label">LID</div>
+                <div class="attr-hex-val" id="attr-liderazgo">00</div>
+              </div>
+              <div class="attr-hex-cell">
+                <div class="attr-hex-label">PRE</div>
+                <div class="attr-hex-val" id="attr-precision">00</div>
+              </div>
+              <div class="attr-hex-cell">
+                <div class="attr-hex-label">AMB</div>
+                <div class="attr-hex-val" id="attr-ambicion">00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hash Hash de Autenticidad -->
+          <div class="hash-container" id="authHash">
+            SECURE-HASH-LGD-000000000000000000000000
+          </div>
+          
+          <div style="text-align: center; margin-top: 12px;">
+            <a href="index.html" class="btn-outline">Ir a LEGADO CARDS</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- JavaScript verify logic -->
+  <script>
+    // URL del Google Apps Script Web App (Actualizar tras desplegar)
+    const APPS_SCRIPT_URL = ""; 
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      verifyCard();
+    });
+
+    // Control de Temas Claro/Oscuro
+    function initTheme() {
+      const toggleBtn = document.getElementById("themeToggle");
+      
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-theme");
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          document.body.classList.toggle("light-theme");
+          const currentTheme = document.body.classList.contains("light-theme") ? "light" : "dark";
+          localStorage.setItem("theme", currentTheme);
+        });
+      }
+    }
+
+    // Extraer ID y Consultar Apps Script
+    async function verifyCard() {
+      const loader = document.getElementById("loader");
+      const errorBox = document.getElementById("errorBox");
+      const dashboard = document.getElementById("dashboard");
+
+      // Paso 1: Obtener ID desde URL (/verify/LGD-2026-XXXX) o parámetro (?id=LGD-2026-XXXX)
+      let cardId = new URLSearchParams(window.location.search).get("id");
+      if (!cardId) {
+        const pathParts = window.location.pathname.split("/");
+        cardId = pathParts[pathParts.length - 1];
+      }
+
+      // Si no hay ID en la URL, mostrar error directo
+      if (!cardId || cardId === "verify.html" || cardId === "") {
+        loader.style.display = "none";
+        errorBox.style.display = "block";
+        return;
+      }
+
+      // Limpiar y estandarizar ID
+      cardId = cardId.trim().toUpperCase();
+
+      // Si no tenemos URL de Apps Script configurada, usar simulación local (mockup)
+      if (!APPS_SCRIPT_URL) {
+        console.warn("APPS_SCRIPT_URL no configurada. Ejecutando demostración local.");
+        
+        // Simular llamada con timeout
+        setTimeout(() => {
+          const isSampleId = cardId.startsWith("LGD-2026-");
+          if (isSampleId) {
+            const numPart = cardId.replace("LGD-2026-", "");
+            const num = parseInt(numPart) || 18;
+            
+            showAutentica({
+              success: true,
+              found: true,
+              active: true,
+              id: cardId,
+              noCarta: num,
+              rareza: num > 90 ? "LEYENDA" : (num > 80 ? "ÉLITE" : (num > 50 ? "ORO" : "PLATA")),
+              ovr: num > 90 ? 98 : (num > 80 ? 92 : (num > 50 ? 87 : 78)),
+              atributos: { energia: 88, inteligencia: 91, resistencia: 82, liderazgo: 95, precision: 84, ambicion: 89 },
+              cliente: "Demo Local (Faltas de conexión)",
+              pais: "Perú 🇵🇪",
+              fecha: "18/06/2026"
+            });
+          } else {
+            loader.style.display = "none";
+            errorBox.style.display = "block";
+          }
+        }, 1500);
+        return;
+      }
+
+      try {
+        // Consultar al Apps Script Web App vía GET
+        const response = await fetch(`${APPS_SCRIPT_URL}?id=${cardId}`);
+        const data = await response.json();
+
+        loader.style.display = "none";
+
+        if (data.success && data.found && data.active) {
+          showAutentica(data);
+        } else {
+          errorBox.style.display = "block";
+        }
+
+      } catch (err) {
+        console.error("Error al consultar autenticidad: ", err);
+        loader.style.display = "none";
+        errorBox.style.display = "block";
+      }
+    }
+
+    // Renderizar datos del Dashboard
+    function showAutentica(data) {
+      const dashboard = document.getElementById("dashboard");
+      
+      document.getElementById("cardIdTitle").textContent = data.id;
+      document.getElementById("cardOvr").textContent = data.ovr;
+      
+      const noCartaStr = "#" + String(data.noCarta).padStart(4, "0") + " / 2026";
+      document.getElementById("cardNo").textContent = noCartaStr;
+      
+      document.getElementById("cardOwner").textContent = data.cliente;
+      document.getElementById("cardCountry").textContent = data.pais;
+      document.getElementById("cardDate").textContent = data.fecha;
+      
+      // Rareza Badge Color
+      const rarityBadge = document.getElementById("cardRarity");
+      rarityBadge.textContent = data.rareza;
+      
+      const rarityColors = {
+        "BRONCE": "#C8972A",
+        "PLATA": "#B0B0B0",
+        "ORO": "#FFD700",
+        "ÉLITE": "#FF1744",
+        "LEYENDA": "#9C27B0"
+      };
+      
+      const color = rarityColors[data.rareza.toUpperCase()] || "var(--gold-brand)";
+      rarityBadge.style.backgroundColor = color;
+      if (data.rareza.toUpperCase() === "ORO" || data.rareza.toUpperCase() === "PLATA") {
+        rarityBadge.style.color = "#000";
+      } else {
+        rarityBadge.style.color = "#FFF";
+      }
+
+      // Atributos
+      document.getElementById("attr-energia").textContent = data.atributos.energia;
+      document.getElementById("attr-inteligencia").textContent = data.atributos.inteligencia;
+      document.getElementById("attr-resistencia").textContent = data.atributos.resistencia;
+      document.getElementById("attr-liderazgo").textContent = data.atributos.liderazgo;
+      document.getElementById("attr-precision").textContent = data.atributos.precision;
+      document.getElementById("attr-ambicion").textContent = data.atributos.ambicion;
+
+      // Generar un Hash criptográfico de demostración
+      const rawString = `${data.id}-${data.noCarta}-${data.cliente}-${data.ovr}`;
+      const hash = dummyHash(rawString);
+      document.getElementById("authHash").textContent = `HASH: LGD-SHA256-${hash}`;
+
+      dashboard.style.display = "block";
+    }
+
+    // Hash dummy rápido en JS para simulación de blockchain/autenticidad
+    function dummyHash(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
+        hash |= 0; 
+      }
+      const hex = Math.abs(hash).toString(16).toUpperCase();
+      return (hex + "A37FFB29CD492E8C01FF8472B").substring(0, 32);
+    }
+  </script>
+</body>
+</html>

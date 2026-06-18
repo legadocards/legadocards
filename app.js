@@ -7,6 +7,7 @@ const CONFIG = {
   whatsappNumber: "51989481296",
   emailDestino: "legadocards@gmail.com",
   appsScriptURL: "", // URL de la Web App de Google Apps Script
+  baseUrl: "https://legadocards.vercel.app", // URL base configurable para QR y verify
   cartasEmitidas: 17,
   totalCartas: 2026,
   earlyBirdRestantes: 83,
@@ -528,86 +529,136 @@ function initFormSubmission() {
     submitBtn.textContent = "ENVIANDO DATOS...";
     submitBtn.disabled = true;
 
-    const nextIdNum = CONFIG.cartasEmitidas + 1;
-    const paddedId = String(nextIdNum).padStart(4, "0");
-    const assignedCardId = `#${paddedId}/2026`;
-
     try {
-      if (CONFIG.appsScriptURL) {
-        const formData = new FormData();
-        formData.append("nombre", nombre);
-        formData.append("email", email);
-        formData.append("whatsapp", whatsapp);
-        formData.append("pais", pais);
-        formData.append("paquete", paquete);
-        formData.append("rol", rol);
-        formData.append("metodoPago", metodoPago);
-        formData.append("comentarios", comentarios);
-        formData.append("cardId", assignedCardId);
-
-        const fotoBase64 = await fileToBase64(fotoFile);
-        const comprobanteBase64 = await fileToBase64(comprobanteFile);
-
-        formData.append("fotoBase64", fotoBase64);
-        formData.append("fotoName", fotoFile.name);
-        formData.append("comprobanteBase64", comprobanteBase64);
-        formData.append("comprobanteName", comprobanteFile.name);
-
-        fetch(CONFIG.appsScriptURL, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors"
-        }).catch(err => console.error("Error enviando a Apps Script:", err));
+      if (!CONFIG.appsScriptURL) {
+        // Fallback inmediato si no hay URL configurada
+        console.warn("Apps Script URL no configurada. Ejecutando fallback mailto.");
+        alert("Enlace con servidor no configurado. Se abrirá tu correo para registrar la solicitud manualmente.");
+        ejecutarFallbackMailto({ nombre, email, whatsapp, pais, paquete, rol, metodoPago, comentarios });
+        return;
       }
 
-      const modalCardIdElement = document.getElementById("modalCardId");
-      if (modalCardIdElement) {
-        modalCardIdElement.textContent = assignedCardId;
+      // Convertir archivos a Base64
+      const fotoBase64 = await fileToBase64(fotoFile);
+      const comprobanteBase64 = await fileToBase64(comprobanteFile);
+
+      // Crear objeto payload para evitar CORS preflight (OPTIONS request) enviándolo como simple text/plain
+      const payload = {
+        nombre,
+        email,
+        whatsapp,
+        pais,
+        paquete,
+        rol,
+        metodoPago,
+        comentarios,
+        fotoBase64,
+        fotoName: fotoFile.name,
+        comprobanteBase64,
+        comprobanteName: comprobanteFile.name
+      };
+
+      const response = await fetch(CONFIG.appsScriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la red (status: " + response.status + ")");
       }
-      
-      if (modal) {
-        modal.classList.add("active");
-      }
 
-      // Estructura de mensaje de WhatsApp adaptada: Sin mención a IA, con OVR aleatorio y tiempos de entrega correctos
-      const wppMessage = `*¡NUEVA SOLICITUD DE FUNDADOR!* 🏆\n` +
-                         `-----------------------------\n` +
-                         `*ID Asignado:* ${assignedCardId}\n` +
-                         `*Nombre:* ${nombre}\n` +
-                         `*WhatsApp:* ${whatsapp}\n` +
-                         `*Email:* ${email}\n` +
-                         `*País Representado:* ${pais}\n` +
-                         `*Paquete:* ${paquete}\n` +
-                         `*Rol/Apodo:* ${rol ? rol : 'Ninguno'}\n` +
-                         `*Método de Pago:* ${metodoPago}\n` +
-                         `*Comentarios:* ${comentarios ? comentarios : 'Ninguno'}\n` +
-                         `-----------------------------\n` +
-                         `*Tiempos Entendidos:* Digital en max 12 horas, Físico en 24-48 horas.\n` +
-                         `*Nota:* Adjunto mi foto de perfil y comprobante de pago en este chat.`;
+      const data = await response.json();
 
-      const encodedMessage = encodeURIComponent(wppMessage);
-      const wppUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+      if (data.success) {
+        // Asignación correcta
+        const assignedCardId = data.cardId;
+        const noCarta = data.noCarta;
+        const rareza = data.rareza;
+        const ovr = data.ovr;
+        const verifyUrl = data.verifyUrl || `${CONFIG.baseUrl}/verify/${assignedCardId}`;
 
-      if (closeModalBtn) {
-        closeModalBtn.onclick = () => {
-          modal.classList.remove("active");
-          window.open(wppUrl, "_blank");
-          form.reset();
-          
-          document.getElementById("previewFotoContainer").style.display = "none";
-          document.getElementById("previewComprobanteContainer").style.display = "none";
-          
-          // Reset selector de pagos
-          paymentButtons.forEach(b => b.classList.remove("active"));
-          detailBoxes.forEach(box => box.classList.remove("active"));
-        };
+        // Mostrar ID en el modal
+        const modalCardIdElement = document.getElementById("modalCardId");
+        if (modalCardIdElement) {
+          modalCardIdElement.textContent = assignedCardId;
+        }
+
+        // Generar código QR usando la librería local qrcode.js
+        const canvasQR = document.getElementById("canvasQR");
+        if (canvasQR) {
+          canvasQR.innerHTML = "";
+          new QRCode(canvasQR, {
+            text: verifyUrl,
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+
+          // Configurar link de descarga del QR
+          setTimeout(() => {
+            const qrImg = canvasQR.querySelector("img");
+            const qrCanvas = canvasQR.querySelector("canvas");
+            let downloadUrl = "";
+            if (qrImg && qrImg.src) {
+              downloadUrl = qrImg.src;
+            } else if (qrCanvas) {
+              downloadUrl = qrCanvas.toDataURL("image/png");
+            }
+            const downloadBtn = document.getElementById("downloadQRBtn");
+            if (downloadBtn && downloadUrl) {
+              downloadBtn.href = downloadUrl;
+              downloadBtn.download = `QR_${assignedCardId}.png`;
+            }
+          }, 400);
+        }
+
+        // Configurar enlace de WhatsApp en el modal
+        const wppMessage = `Hola LEGADO, acabo de registrarme. Mi ID es ${assignedCardId} y mi paquete es ${paquete}`;
+        const encodedMessage = encodeURIComponent(wppMessage);
+        const wppUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+
+        const modalWhatsappBtn = document.getElementById("modalWhatsappBtn");
+        if (modalWhatsappBtn) {
+          modalWhatsappBtn.href = wppUrl;
+        }
+
+        // Activar modal
+        if (modal) {
+          modal.classList.add("active");
+        }
+
+        // Configurar comportamiento al cerrar el modal
+        if (closeModalBtn) {
+          closeModalBtn.onclick = () => {
+            modal.classList.remove("active");
+            form.reset();
+            
+            document.getElementById("previewFotoContainer").style.display = "none";
+            document.getElementById("previewComprobanteContainer").style.display = "none";
+            
+            // Reset selector de pagos
+            document.querySelectorAll(".payment-sel-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".payment-detail-box").forEach(box => box.classList.remove("active"));
+          };
+        }
+
       } else {
-        window.open(wppUrl, "_blank");
+        // El script devolvió un error (ej: colección completa)
+        if (data.message && data.message.includes("completa")) {
+          alert("La colección está completa. No quedan cartas fundadoras disponibles.");
+        } else {
+          alert("Error: " + (data.message || "No se pudo procesar tu solicitud en este momento."));
+          // Ejecutar el fallback de correo
+          ejecutarFallbackMailto({ nombre, email, whatsapp, pais, paquete, rol, metodoPago, comentarios });
+        }
       }
 
     } catch (error) {
       console.error("Error en el envío del formulario:", error);
-      alert("Hubo un problema procesando tu registro. Inténtalo de nuevo.");
+      alert("Hubo un problema de conexión al procesar tu registro. Abriremos tu correo para enviar los datos directamente.");
+      ejecutarFallbackMailto({ nombre, email, whatsapp, pais, paquete, rol, metodoPago, comentarios });
     } finally {
       submitBtn.textContent = originalBtnText;
       submitBtn.disabled = false;
@@ -633,4 +684,32 @@ function fileToBase64(file) {
     };
     reader.onerror = error => reject(error);
   });
+}
+
+function ejecutarFallbackMailto(datos) {
+  const emailDestino = CONFIG.emailDestino || "legadocards@gmail.com";
+  const asunto = `[LEGADO] Solicitud de Carta - ${datos.nombre}`;
+  
+  const hoy = new Date();
+  const dateString = `${String(hoy.getDate()).padStart(2, '0')}/${String(hoy.getMonth() + 1).padStart(2, '0')}/${hoy.getFullYear()}`;
+  
+  const cuerpo = 
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `NUEVA VENTA LEGADO CARDS (FALLBACK OFFLINE)\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `CLIENTE\n` +
+    `Nombre:       ${datos.nombre}\n` +
+    `País:         ${datos.pais}\n` +
+    `Rol/Apodo:    ${datos.rol ? datos.rol : 'Ninguno'}\n` +
+    `Email:        ${datos.email}\n` +
+    `WhatsApp:     ${datos.whatsapp}\n` +
+    `Paquete:      ${datos.paquete}\n` +
+    `Método de Pago: ${datos.metodoPago}\n` +
+    `Fecha:        ${dateString}\n\n` +
+    `COMENTARIOS: ${datos.comentarios ? datos.comentarios : 'Ninguno'}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `Nota: Por favor, adjunte manualmente su FOTO DE PERFIL y el COMPROBANTE DE PAGO a este correo.`;
+
+  const mailtoUrl = `mailto:${emailDestino}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+  window.open(mailtoUrl, "_self");
 }
