@@ -36,6 +36,7 @@ function doPost(e) {
 
     // Nombre de contacto (comprador)
     var contacto = data.compradorNombre || data.nombre;
+    var metodoPago = data.metodoPago || "NO ESPECIFICADO";
 
     // Validar campos obligatorios
     if (!contacto || !data.email || !data.whatsapp || !data.paquete) {
