@@ -89,42 +89,26 @@ function doPost(e) {
     }
 
     var range = sheet.getRange(2, 11, lastRow - 1, 1).getValues(); // Columna K (Vendida)
-    var foundRows = [];
+    var availableIndices = [];
 
-    // Algoritmo: Buscar N filas consecutivas vacías
-    for (var i = 0; i < range.length - N + 1; i++) {
-      var isMatch = true;
-      for (var j = 0; j < N; j++) {
-        var val = range[i + j][0];
-        if (val !== "" && val !== undefined && val !== null) {
-          isMatch = false;
-          break;
-        }
-      }
-      if (isMatch) {
-        for (var j = 0; j < N; j++) {
-          foundRows.push(i + j + 2); // +2 por índice 0 y cabecera
-        }
-        break;
+    // Obtener los índices de todas las filas libres
+    for (var i = 0; i < range.length; i++) {
+      var val = range[i][0];
+      if (val === "" || val === undefined || val === null || val.toString().trim() === "") {
+        availableIndices.push(i + 2); // +2 por índice 0 y cabecera
       }
     }
 
-    // Fallback: Si no hay consecutivas, tomar las primeras N individuales que estén libres
-    if (foundRows.length < N) {
-      foundRows = [];
-      for (var i = 0; i < range.length; i++) {
-        var val = range[i][0];
-        if (val === "" || val === undefined || val === null) {
-          foundRows.push(i + 2);
-          if (foundRows.length === N) {
-            break;
-          }
-        }
-      }
-    }
-
-    if (foundRows.length < N) {
+    if (availableIndices.length < N) {
       return responseJson({ success: false, message: "La colección está completa. No quedan suficientes cartas fundadoras disponibles (solicitadas: " + N + ")." });
+    }
+
+    // Seleccionar N filas de forma completamente aleatoria y sin repetir
+    var foundRows = [];
+    for (var k = 0; k < N; k++) {
+      var randIndex = Math.floor(Math.random() * availableIndices.length);
+      foundRows.push(availableIndices[randIndex]);
+      availableIndices.splice(randIndex, 1); // Quitar del pool para no repetir en esta compra
     }
 
     // Extraer precio
@@ -386,7 +370,19 @@ function inicializarSheet() {
   if (!sheet) {
     sheet = ss.insertSheet(CONFIG.SHEET_NAME);
   } else {
-    sheet.clear();
+    // Para evitar borrar datos del usuario accidentalmente, verificamos si ya hay datos
+    var lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      Logger.log("La hoja ya tiene datos. No se borrará nada para proteger la información existente.");
+      
+      // Solo nos aseguramos de que las columnas Q a U estén creadas en la cabecera
+      var lastCol = sheet.getLastColumn();
+      if (lastCol < 21) {
+        sheet.getRange(1, 17, 1, 5).setValues([["Paquete", "QR URL", "Rol / Posición", "Fecha Nacimiento", "Historia / Descripción"]]);
+        Logger.log("Columnas adicionales Q a U agregadas a la cabecera.");
+      }
+      return;
+    }
   }
 
   // Escribir cabeceras oficiales
@@ -398,7 +394,7 @@ function inicializarSheet() {
   ];
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
 
-  // Generar datos semilla: 100 cartas pre-diseñadas
+  // Generar datos semilla: 2026 cartas pre-diseñadas
   var dataSemilla = [];
   var rarezasList = [
     { name: "BRONCE", ovrMin: 60, ovrMax: 74 },
@@ -408,7 +404,7 @@ function inicializarSheet() {
     { name: "LEYENDA", ovrMin: 95, ovrMax: 99 }
   ];
 
-  for (var num = 1; num <= 100; num++) {
+  for (var num = 1; num <= 2026; num++) {
     var paddedNum = String(num).padStart(4, "0");
     var id = "LGD-2026-" + paddedNum;
     
@@ -460,6 +456,11 @@ function inicializarSheet() {
     ]);
   }
 
-  sheet.getRange(2, 1, dataSemilla.length, headers.length).setValues(dataSemilla);
-  Logger.log("Hoja de cálculo inicializada con éxito y 100 cartas semilla.");
+  // Escribir los datos semilla en la hoja por bloques para evitar límites de celdas
+  var batchSize = 500;
+  for (var b = 0; b < dataSemilla.length; b += batchSize) {
+    var chunk = dataSemilla.slice(b, b + batchSize);
+    sheet.getRange(b + 2, 1, chunk.length, headers.length).setValues(chunk);
+  }
+  Logger.log("Hoja de cálculo inicializada con éxito y 2026 cartas semilla.");
 }
