@@ -2310,3 +2310,19 @@ body.light-theme .footer-bottom {
     animation: none !important;
   }
 }
+
+/* Scrollbar y estilos para el modal de múltiples QRs */
+#modalCardsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+#modalCardsContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+#modalCardsContainer::-webkit-scrollbar-thumb {
+  background: var(--gold-brand);
+  border-radius: 4px;
+}
+#modalCardsContainer::-webkit-scrollbar-thumb:hover {
+  background: #FFF;
+}

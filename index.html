@@ -861,8 +861,8 @@
             
             <div class="form-row-2">
               <div class="form-group">
-                <label for="nombre">Nombre Completo *</label>
-                <input type="text" id="nombre" class="form-control" placeholder="Ej. Carlos Gutiérrez" required>
+                <label for="contactoNombre">Nombre del Comprador / Contacto *</label>
+                <input type="text" id="contactoNombre" class="form-control" placeholder="Ej. Carlos Gutiérrez" required>
               </div>
               
               <div class="form-group">
@@ -877,25 +877,6 @@
                 <input type="tel" id="whatsapp" class="form-control" placeholder="Ej. 51989481296" required>
               </div>
 
-              <div class="form-group">
-                <label for="pais">País Representado *</label>
-                <select id="pais" class="form-control" required>
-                  <option value="" disabled selected>Selecciona tu país</option>
-                  <option value="Perú">Perú 🇵🇪</option>
-                  <option value="Argentina">Argentina 🇦🇷</option>
-                  <option value="Brasil">Brasil 🇧🇷</option>
-                  <option value="Colombia">Colombia 🇨🇴</option>
-                  <option value="México">México 🇲🇽</option>
-                  <option value="Chile">Chile 🇨🇱</option>
-                  <option value="Ecuador">Ecuador 🇪🇨</option>
-                  <option value="España">España 🇪🇸</option>
-                  <option value="Estados Unidos">Estados Unidos 🇺🇸</option>
-                  <option value="Otro">Otro País</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-row-2">
               <div class="form-group">
                 <label for="paquete">Paquete Seleccionado *</label>
                 <select id="paquete" class="form-control" required>
@@ -928,12 +909,10 @@
                   </optgroup>
                 </select>
               </div>
-
-              <div class="form-group">
-                <label for="rol">Rol o Apodo en la Carta (Máx. 20 caracteres)</label>
-                <input type="text" id="rol" class="form-control" placeholder="Ej. PAPÁ, CAPITÁN, REY, LÍDER" maxlength="20">
-              </div>
             </div>
+
+            <!-- Contenedor dinámico de campos para cada jugador -->
+            <div id="dynamicPlayersContainer"></div>
 
             <!-- Selector de Métodos de Pago Interactivo (Oculto hasta hacer clic) -->
             <div class="form-group">
@@ -977,17 +956,7 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label>Sube tu Fotografía de Perfil *</label>
-              <div class="upload-box">
-                <span class="upload-icon">📷</span>
-                <p>Haz clic para subir o arrastra tu fotografía aquí</p>
-                <input type="file" id="foto" class="file-input" accept="image/*" required>
-              </div>
-              <div class="preview-container" id="previewFotoContainer">
-                <img src="#" alt="Vista previa de foto" class="img-preview" id="previewFoto">
-              </div>
-            </div>
+
 
             <div class="form-group">
               <label>Sube tu Comprobante de Pago *</label>
@@ -1046,19 +1015,17 @@
 
     <!-- Modal de confirmación -->
     <div class="modal-overlay" id="confirmacionModal">
-      <div class="modal-content">
+      <div class="modal-content" style="max-width: 550px;">
         <span class="modal-icon">🏆</span>
         <h3>¡SOLICITUD RECIBIDA!</h3>
-        <p>Tu solicitud ha sido procesada con éxito. Se te ha asignado el siguiente ID de la Edición Fundadora:</p>
-        <div class="modal-card-id" id="modalCardId">LGD-2026-0000</div>
+        <p>Tu solicitud ha sido procesada con éxito. Aquí tienes tus accesos de la Edición Fundadora:</p>
         
-        <!-- Código QR visible y descargable -->
-        <div style="display: flex; flex-direction: column; align-items: center; margin: 24px 0; gap: 12px;">
-          <div id="canvasQR" style="background: #FFF; padding: 12px; border-radius: 6px; border: 1px solid var(--gold-brand); display: inline-block;"></div>
-          <a id="downloadQRBtn" href="#" download="QR_LEGADO.png" style="font-family: var(--font-title); font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--gold-brand); text-decoration: underline; text-transform: uppercase;">Descargar Código QR</a>
+        <!-- Contenedor dinámico de cartas y códigos QR -->
+        <div id="modalCardsContainer" style="display: flex; flex-direction: column; gap: 24px; margin: 24px 0; max-height: 320px; overflow-y: auto; padding-right: 8px; text-align: left;">
+          <!-- Se llenará dinámicamente -->
         </div>
 
-        <p>En menos de 12 horas recibirás tu carta digital en tu correo.</p>
+        <p>En menos de 12 horas recibirás tus cartas digitales directamente en tu correo.</p>
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px; width: 100%;">
           <a id="modalWhatsappBtn" href="#" target="_blank" class="btn-gold" style="width: 100%; text-align: center; text-decoration: none; display: block; box-sizing: border-box;">ABRIR WHATSAPP 📱</a>
           <button class="btn-outline" id="closeModalBtn" style="width: 100%; box-sizing: border-box;">CERRAR</button>

@@ -404,6 +404,14 @@
                 <label>Fecha de Emisión</label>
                 <span id="cardDate">DD/MM/YYYY</span>
               </div>
+              <div class="info-item" id="info-rol-container" style="display: none;">
+                <label>Posición / Relación</label>
+                <span id="cardRol">Rol</span>
+              </div>
+              <div class="info-item" id="info-nacimiento-container" style="display: none;">
+                <label>Fecha de Nacimiento</label>
+                <span id="cardNacimiento">DD/MM/YYYY</span>
+              </div>
             </div>
           </div>
 
@@ -436,7 +444,12 @@
                 <div class="attr-hex-label">AMB</div>
                 <div class="attr-hex-val" id="attr-ambicion">00</div>
               </div>
-            </div>
+          </div>
+
+          <!-- Historia / Descripción (Opcional) -->
+          <div class="verify-attrs-section" id="info-historia-container" style="display: none; border-top: 1px solid var(--card-border); padding-top: 24px; margin-top: 24px;">
+            <h3>Historia del Fundador</h3>
+            <p id="cardHistoria" style="font-size: 14px; line-height: 1.6; color: var(--text-secondary); text-align: justify; font-style: italic;"></p>
           </div>
 
           <!-- Hash Hash de Autenticidad -->
@@ -599,6 +612,41 @@
       document.getElementById("attr-liderazgo").textContent = data.atributos.liderazgo;
       document.getElementById("attr-precision").textContent = data.atributos.precision;
       document.getElementById("attr-ambicion").textContent = data.atributos.ambicion;
+
+      // Rol / Posición
+      const rolContainer = document.getElementById("info-rol-container");
+      const cardRol = document.getElementById("cardRol");
+      if (data.rol && data.rol !== "Ninguno" && data.rol !== "") {
+        cardRol.textContent = data.rol;
+        rolContainer.style.display = "block";
+      } else {
+        rolContainer.style.display = "none";
+      }
+
+      // Fecha de Nacimiento
+      const nacimientoContainer = document.getElementById("info-nacimiento-container");
+      const cardNacimiento = document.getElementById("cardNacimiento");
+      if (data.fechaNacimiento && data.fechaNacimiento !== "") {
+        let dateVal = data.fechaNacimiento;
+        if (dateVal.includes("-")) {
+          const parts = dateVal.split("-");
+          dateVal = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+        cardNacimiento.textContent = dateVal;
+        nacimientoContainer.style.display = "block";
+      } else {
+        nacimientoContainer.style.display = "none";
+      }
+
+      // Historia
+      const historiaContainer = document.getElementById("info-historia-container");
+      const cardHistoria = document.getElementById("cardHistoria");
+      if (data.historia && data.historia !== "Ninguna" && data.historia !== "") {
+        cardHistoria.textContent = data.historia;
+        historiaContainer.style.display = "block";
+      } else {
+        historiaContainer.style.display = "none";
+      }
 
       // Generar un Hash criptográfico de demostración
       const rawString = `${data.id}-${data.noCarta}-${data.cliente}-${data.ovr}`;

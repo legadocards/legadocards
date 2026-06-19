@@ -488,13 +488,132 @@ function initFormSubmission() {
   const form = document.getElementById("legadoForm");
   const modal = document.getElementById("confirmacionModal");
   const closeModalBtn = document.getElementById("closeModalBtn");
+  const packageSelect = document.getElementById("paquete");
+  const dynamicContainer = document.getElementById("dynamicPlayersContainer");
   
   if (!form) return;
+
+  // Determinar cantidad de jugadores según el paquete
+  function getPlayerCount(packageName) {
+    if (!packageName) return 1;
+    const name = packageName.toLowerCase();
+    if (name.includes("dupla")) return 2;
+    if (name.includes("4p") || name.includes("4 personas") || name.includes("4 persona")) return 4;
+    if (name.includes("5p") || name.includes("5 personas") || name.includes("5 persona") || name.includes("familia 5")) return 5;
+    if (name.includes("7p") || name.includes("7 personas") || name.includes("7 persona")) return 7;
+    if (name.includes("11p") || name.includes("11 personas") || name.includes("11 persona") || name.includes("equipo 11") || name.includes("equipo fundador")) return 11;
+    return 1;
+  }
+
+  // Generar dinámicamente los bloques del formulario por jugador
+  function renderPlayerFields() {
+    if (!packageSelect || !dynamicContainer) return;
+    const qty = getPlayerCount(packageSelect.value);
+    dynamicContainer.innerHTML = "";
+
+    for (let i = 1; i <= qty; i++) {
+      const playerBlock = document.createElement("div");
+      playerBlock.className = "player-block-card";
+      playerBlock.style.border = "1px solid var(--card-border)";
+      playerBlock.style.padding = "24px";
+      playerBlock.style.borderRadius = "8px";
+      playerBlock.style.marginBottom = "24px";
+      playerBlock.style.background = "rgba(255, 255, 255, 0.01)";
+
+      playerBlock.innerHTML = `
+        <h4 style="color: var(--gold-brand); font-family: var(--font-title); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; border-bottom: 1px solid rgba(188, 151, 72, 0.15); padding-bottom: 8px;">Datos del Jugador #${i}</h4>
+        
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="p${i}_nombre">Nombre Completo *</label>
+            <input type="text" id="p${i}_nombre" class="form-control player-nombre" placeholder="Ej. Carlos Gutiérrez" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="p${i}_rol">Posición / Relación *</label>
+            <input type="text" id="p${i}_rol" class="form-control player-rol" placeholder="Ej. DELANTERO, PAPÁ, CAPITÁN" required maxlength="20">
+          </div>
+        </div>
+
+        <div class="form-row-2" style="margin-top: 15px;">
+          <div class="form-group">
+            <label for="p${i}_fecha">Fecha de Nacimiento (Opcional)</label>
+            <input type="date" id="p${i}_fecha" class="form-control player-fecha">
+          </div>
+
+          <div class="form-group">
+            <label for="p${i}_pais">País Representado *</label>
+            <select id="p${i}_pais" class="form-control player-pais" required>
+              <option value="" disabled selected>Selecciona su país</option>
+              <option value="Perú">Perú 🇵🇪</option>
+              <option value="Argentina">Argentina 🇦🇷</option>
+              <option value="Brasil">Brasil 🇧🇷</option>
+              <option value="Colombia">Colombia 🇨🇴</option>
+              <option value="México">México 🇲🇽</option>
+              <option value="Chile">Chile 🇨🇱</option>
+              <option value="Ecuador">Ecuador 🇪🇨</option>
+              <option value="España">España 🇪🇸</option>
+              <option value="Estados Unidos">Estados Unidos 🇺🇸</option>
+              <option value="Otro">Otro País</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+          <label for="p${i}_historia">Historia o Descripción (Opcional)</label>
+          <textarea id="p${i}_historia" class="form-control player-historia" placeholder="Ej. Breve descripción de sus logros o datos curiosos..." style="height: 70px; resize: vertical;"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+          <label>Sube su Fotografía de Perfil *</label>
+          <div class="upload-box" id="p${i}_uploadBox" style="position: relative; cursor: pointer;">
+            <span class="upload-icon" style="font-size: 24px;">📷</span>
+            <p id="p${i}_uploadText" style="font-size: 12px; margin-top: 4px;">Haz clic para subir la foto del Jugador #${i}</p>
+            <input type="file" id="p${i}_foto" class="file-input player-foto" accept="image/*" required style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+          </div>
+          <div class="preview-container" id="p${i}_previewContainer" style="display: none; margin-top: 12px; text-align: center;">
+            <img src="#" alt="Vista previa de foto ${i}" class="img-preview" id="p${i}_previewFoto" style="max-height: 120px; border-radius: 4px; border: 1px solid var(--gold-brand); display: inline-block;">
+          </div>
+        </div>
+      `;
+
+      dynamicContainer.appendChild(playerBlock);
+
+      const fileInput = playerBlock.querySelector(`#p${i}_foto`);
+      const previewContainer = playerBlock.querySelector(`#p${i}_previewContainer`);
+      const previewFoto = playerBlock.querySelector(`#p${i}_previewFoto`);
+      const uploadText = playerBlock.querySelector(`#p${i}_uploadText`);
+
+      fileInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewFoto.src = e.target.result;
+            previewContainer.style.display = "block";
+            uploadText.textContent = "✓ Foto cargada con éxito";
+            uploadText.style.color = "#00E676";
+          };
+          reader.readAsDataURL(file);
+        } else {
+          previewContainer.style.display = "none";
+          uploadText.textContent = `Haz clic para subir la foto del Jugador #${i}`;
+          uploadText.style.color = "";
+        }
+      });
+    }
+  }
+
+  // Escuchar cambios en selector y botón de pre-seleccionar
+  if (packageSelect) {
+    packageSelect.addEventListener("change", renderPlayerFields);
+  }
 
   window.seleccionarPaquete = function(packageName) {
     const selector = document.getElementById("paquete");
     if (selector) {
       selector.value = packageName;
+      selector.dispatchEvent(new Event("change"));
       const formSection = document.getElementById("formulario");
       if (formSection) {
         formSection.scrollIntoView({ behavior: "smooth" });
@@ -502,26 +621,56 @@ function initFormSubmission() {
     }
   };
 
+  // Inicializar 1 jugador por defecto
+  renderPlayerFields();
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
+    const compradorNombre = document.getElementById("contactoNombre").value.trim();
     const email = document.getElementById("email").value.trim();
     const whatsapp = document.getElementById("whatsapp").value.trim();
-    const pais = document.getElementById("pais").value;
     const paquete = document.getElementById("paquete").value;
-    const rol = document.getElementById("rol").value.trim();
     const comentarios = document.getElementById("comentarios").value.trim();
-    const fotoFile = document.getElementById("foto").files[0];
     const comprobanteFile = document.getElementById("comprobante").files[0];
 
-    // Verificar si seleccionó método de pago
     const activePaymentBtn = document.querySelector(".payment-sel-btn.active");
     const metodoPago = activePaymentBtn ? activePaymentBtn.dataset.method.toUpperCase() : "NO ESPECIFICADO";
 
-    if (!nombre || !email || !whatsapp || !pais || !paquete || !fotoFile || !comprobanteFile) {
-      alert("Por favor, completa todos los campos obligatorios y sube las imágenes requeridas.");
+    if (!compradorNombre || !email || !whatsapp || !paquete || !comprobanteFile) {
+      alert("Por favor, completa todos los campos obligatorios y sube el comprobante de pago.");
       return;
+    }
+
+    const qty = getPlayerCount(paquete);
+    const jugadores = [];
+
+    // Recopilar datos de cada jugador
+    for (let i = 1; i <= qty; i++) {
+      const nombreEl = document.getElementById(`p${i}_nombre`);
+      const rolEl = document.getElementById(`p${i}_rol`);
+      const fechaEl = document.getElementById(`p${i}_fecha`);
+      const paisEl = document.getElementById(`p${i}_pais`);
+      const historiaEl = document.getElementById(`p${i}_historia`);
+      const fotoEl = document.getElementById(`p${i}_foto`);
+
+      if (!nombreEl || !rolEl || !paisEl || !fotoEl || !fotoEl.files[0]) {
+        alert(`Por favor, completa los datos y sube la foto para el Jugador #${i}.`);
+        return;
+      }
+
+      const fotoFile = fotoEl.files[0];
+      const base64Foto = await fileToBase64(fotoFile);
+
+      jugadores.push({
+        nombre: nombreEl.value.trim(),
+        rol: rolEl.value.trim(),
+        fechaNacimiento: fechaEl ? fechaEl.value : "",
+        pais: paisEl.value,
+        historia: historiaEl ? historiaEl.value.trim() : "",
+        fotoBase64: base64Foto,
+        fotoName: fotoFile.name
+      });
     }
 
     const submitBtn = form.querySelector("button[type='submit']");
@@ -531,31 +680,24 @@ function initFormSubmission() {
 
     try {
       if (!CONFIG.appsScriptURL) {
-        // Fallback inmediato si no hay URL configurada
         console.warn("Apps Script URL no configurada. Ejecutando fallback mailto.");
-        alert("Enlace con servidor no configurado. Se abrirá tu correo para registrar la solicitud manualmente.");
-        ejecutarFallbackMailto({ nombre, email, whatsapp, pais, paquete, rol, metodoPago, comentarios });
+        alert("Enlace con el servidor no configurado. Se abrirá tu correo para registrar la solicitud de cartas manualmente.");
+        ejecutarFallbackMailto({ compradorNombre, email, whatsapp, paquete, metodoPago, comentarios, jugadores });
         return;
       }
 
-      // Convertir archivos a Base64
-      const fotoBase64 = await fileToBase64(fotoFile);
       const comprobanteBase64 = await fileToBase64(comprobanteFile);
 
-      // Crear objeto payload para evitar CORS preflight (OPTIONS request) enviándolo como simple text/plain
       const payload = {
-        nombre,
+        compradorNombre,
         email,
         whatsapp,
-        pais,
         paquete,
-        rol,
         metodoPago,
         comentarios,
-        fotoBase64,
-        fotoName: fotoFile.name,
         comprobanteBase64,
-        comprobanteName: comprobanteFile.name
+        comprobanteName: comprobanteFile.name,
+        jugadores: jugadores
       };
 
       const response = await fetch(CONFIG.appsScriptURL, {
@@ -570,52 +712,78 @@ function initFormSubmission() {
       const data = await response.json();
 
       if (data.success) {
-        // Asignación correcta
-        const assignedCardId = data.cardId;
-        const noCarta = data.noCarta;
-        const rareza = data.rareza;
-        const ovr = data.ovr;
-        const verifyUrl = data.verifyUrl || `${CONFIG.baseUrl}/verify/${assignedCardId}`;
-
-        // Mostrar ID en el modal
-        const modalCardIdElement = document.getElementById("modalCardId");
-        if (modalCardIdElement) {
-          modalCardIdElement.textContent = assignedCardId;
-        }
-
-        // Generar código QR usando la librería local qrcode.js
-        const canvasQR = document.getElementById("canvasQR");
-        if (canvasQR) {
-          canvasQR.innerHTML = "";
-          new QRCode(canvasQR, {
-            text: verifyUrl,
-            width: 150,
-            height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
+        const cartas = data.cartas;
+        
+        // Cargar dinámicamente cada tarjeta y QR en el modal
+        const modalCardsContainer = document.getElementById("modalCardsContainer");
+        if (modalCardsContainer) {
+          modalCardsContainer.innerHTML = "";
+          
+          cartas.forEach((carta, idx) => {
+            const cardBlock = document.createElement("div");
+            cardBlock.style.borderBottom = "1px solid rgba(188, 151, 72, 0.15)";
+            cardBlock.style.paddingBottom = "20px";
+            cardBlock.style.marginBottom = "15px";
+            
+            const qrCanvasId = `qrCanvas_${idx}`;
+            const downloadBtnId = `downloadQR_${idx}`;
+            
+            cardBlock.innerHTML = `
+              <div style="font-family: var(--font-title); font-size: 11px; font-weight: 800; color: var(--gold-brand); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+                CARTA #${idx+1} — ${carta.nombreJugador}
+              </div>
+              <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                <div>
+                  <div class="modal-card-id" style="font-size: 15px; padding: 6px 12px; margin-bottom: 0;">${carta.cardId}</div>
+                  <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; font-weight: 700;">
+                    RAREZA: <span style="color: var(--gold-brand);">${carta.rareza}</span> | OVR: ${carta.ovr}
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                  <div id="${qrCanvasId}" style="background: #FFF; padding: 8px; border-radius: 4px; border: 1px solid var(--gold-brand); display: inline-block;"></div>
+                  <a id="${downloadBtnId}" href="#" download="QR_${carta.cardId}.png" style="font-family: var(--font-title); font-size: 10px; font-weight: 800; letter-spacing: 0.5px; color: var(--gold-brand); text-decoration: underline; text-transform: uppercase;">Descargar QR</a>
+                </div>
+              </div>
+            `;
+            
+            modalCardsContainer.appendChild(cardBlock);
+            
+            // Generar el QR localmente
+            setTimeout(() => {
+              const canvasEl = document.getElementById(qrCanvasId);
+              if (canvasEl) {
+                new QRCode(canvasEl, {
+                  text: carta.verifyUrl,
+                  width: 100,
+                  height: 100,
+                  colorDark: "#000000",
+                  colorLight: "#ffffff",
+                  correctLevel: QRCode.CorrectLevel.H
+                });
+                
+                // Habilitar descarga
+                setTimeout(() => {
+                  const qrImg = canvasEl.querySelector("img");
+                  const qrCanvas = canvasEl.querySelector("canvas");
+                  let downloadUrl = "";
+                  if (qrImg && qrImg.src) {
+                    downloadUrl = qrImg.src;
+                  } else if (qrCanvas) {
+                    downloadUrl = qrCanvas.toDataURL("image/png");
+                  }
+                  const downloadBtn = document.getElementById(downloadBtnId);
+                  if (downloadBtn && downloadUrl) {
+                    downloadBtn.href = downloadUrl;
+                  }
+                }, 350);
+              }
+            }, 50);
           });
-
-          // Configurar link de descarga del QR
-          setTimeout(() => {
-            const qrImg = canvasQR.querySelector("img");
-            const qrCanvas = canvasQR.querySelector("canvas");
-            let downloadUrl = "";
-            if (qrImg && qrImg.src) {
-              downloadUrl = qrImg.src;
-            } else if (qrCanvas) {
-              downloadUrl = qrCanvas.toDataURL("image/png");
-            }
-            const downloadBtn = document.getElementById("downloadQRBtn");
-            if (downloadBtn && downloadUrl) {
-              downloadBtn.href = downloadUrl;
-              downloadBtn.download = `QR_${assignedCardId}.png`;
-            }
-          }, 400);
         }
 
-        // Configurar enlace de WhatsApp en el modal
-        const wppMessage = `Hola LEGADO, acabo de registrarme. Mi ID es ${assignedCardId} y mi paquete es ${paquete}`;
+        // WhatsApp
+        const idsList = cartas.map(c => c.cardId).join(", ");
+        const wppMessage = `Hola LEGADO, acabo de registrarme. Mis IDs asignados son: ${idsList} y mi paquete es ${paquete}`;
         const encodedMessage = encodeURIComponent(wppMessage);
         const wppUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
 
@@ -624,41 +792,34 @@ function initFormSubmission() {
           modalWhatsappBtn.href = wppUrl;
         }
 
-        // Activar modal
         if (modal) {
           modal.classList.add("active");
         }
 
-        // Configurar comportamiento al cerrar el modal
         if (closeModalBtn) {
           closeModalBtn.onclick = () => {
             modal.classList.remove("active");
             form.reset();
-            
-            document.getElementById("previewFotoContainer").style.display = "none";
+            renderPlayerFields();
             document.getElementById("previewComprobanteContainer").style.display = "none";
-            
-            // Reset selector de pagos
             document.querySelectorAll(".payment-sel-btn").forEach(b => b.classList.remove("active"));
             document.querySelectorAll(".payment-detail-box").forEach(box => box.classList.remove("active"));
           };
         }
 
       } else {
-        // El script devolvió un error (ej: colección completa)
         if (data.message && data.message.includes("completa")) {
-          alert("La colección está completa. No quedan cartas fundadoras disponibles.");
+          alert("La colección está completa o no quedan suficientes cartas fundadoras libres.");
         } else {
           alert("Error: " + (data.message || "No se pudo procesar tu solicitud en este momento."));
-          // Ejecutar el fallback de correo
-          ejecutarFallbackMailto({ nombre, email, whatsapp, pais, paquete, rol, metodoPago, comentarios });
+          ejecutarFallbackMailto({ compradorNombre, email, whatsapp, paquete, metodoPago, comentarios, jugadores });
         }
       }
 
     } catch (error) {
       console.error("Error en el envío del formulario:", error);
       alert("Hubo un problema de conexión al procesar tu registro. Abriremos tu correo para enviar los datos directamente.");
-      ejecutarFallbackMailto({ nombre, email, whatsapp, pais, paquete, rol, metodoPago, comentarios });
+      ejecutarFallbackMailto({ compradorNombre, email, whatsapp, paquete, metodoPago, comentarios, jugadores });
     } finally {
       submitBtn.textContent = originalBtnText;
       submitBtn.disabled = false;
@@ -688,27 +849,36 @@ function fileToBase64(file) {
 
 function ejecutarFallbackMailto(datos) {
   const emailDestino = CONFIG.emailDestino || "legadocards@gmail.com";
-  const asunto = `[LEGADO] Solicitud de Carta - ${datos.nombre}`;
+  const asunto = `[LEGADO] Solicitud de Pack - ${datos.compradorNombre}`;
   
   const hoy = new Date();
   const dateString = `${String(hoy.getDate()).padStart(2, '0')}/${String(hoy.getMonth() + 1).padStart(2, '0')}/${hoy.getFullYear()}`;
   
+  let jugadoresTexto = "";
+  datos.jugadores.forEach((jugador, idx) => {
+    jugadoresTexto += `\nJUGADOR #${idx + 1}\n` +
+                      `- Nombre:       ${jugador.nombre}\n` +
+                      `- Posición:     ${jugador.rol}\n` +
+                      `- Nacimiento:   ${jugador.fechaNacimiento ? jugador.fechaNacimiento : "No especificada"}\n` +
+                      `- País:         ${jugador.pais}\n` +
+                      `- Historia:     ${jugador.historia ? jugador.historia : "Ninguna"}\n`;
+  });
+
   const cuerpo = 
     `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
     `NUEVA VENTA LEGADO CARDS (FALLBACK OFFLINE)\n` +
     `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `CLIENTE\n` +
-    `Nombre:       ${datos.nombre}\n` +
-    `País:         ${datos.pais}\n` +
-    `Rol/Apodo:    ${datos.rol ? datos.rol : 'Ninguno'}\n` +
+    `COMPRADOR / CONTACTO\n` +
+    `Nombre:       ${datos.compradorNombre}\n` +
     `Email:        ${datos.email}\n` +
     `WhatsApp:     ${datos.whatsapp}\n` +
     `Paquete:      ${datos.paquete}\n` +
     `Método de Pago: ${datos.metodoPago}\n` +
-    `Fecha:        ${dateString}\n\n` +
+    `Fecha:        ${dateString}\n` +
     `COMENTARIOS: ${datos.comentarios ? datos.comentarios : 'Ninguno'}\n` +
+    `\nINTEGRANTES DEL PACK:${jugadoresTexto}\n` +
     `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `Nota: Por favor, adjunte manualmente su FOTO DE PERFIL y el COMPROBANTE DE PAGO a este correo.`;
+    `Nota: Por favor, adjunte manualmente las FOTOS DE TODOS LOS JUGADORES y el COMPROBANTE DE PAGO a este correo.`;
 
   const mailtoUrl = `mailto:${emailDestino}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
   window.open(mailtoUrl, "_self");
